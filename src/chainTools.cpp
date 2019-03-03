@@ -11,6 +11,22 @@ struct Transaction {
 };
 
 
+struct BlockContent {
+    int blockNumber;
+    string parentHash;
+    int transactionCount;
+    Transaction transactions[5];
+};
+
+struct Block {
+    BlockContent blockContent;
+    string blockHash;
+
+    Block* prev;
+    Block* next;
+};
+
+
 void hashMe() {
     
 }
