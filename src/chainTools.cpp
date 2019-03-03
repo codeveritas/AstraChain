@@ -1,6 +1,6 @@
 #include "chainTools.h"
-#include <iostream>
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -19,15 +19,39 @@ Transaction* makeTransaction(int maxValue = 3) {
 	int sign = rand() % 1 - 1;
 	int amount = rand() % maxValue + 1;
 	ptr->aPays = sign * amount;
-	ptr->bPays = -1 * ptr->aPays;
+	ptr->bPays = -1 * ptr -> aPays;
 	// By construction, this will always return transactions that respect the conservation of tokens.
 	// However, note that we have not done anything to check whether these overdraft an account
 	return ptr;
  }
 
 
-void updateState() {
-   
+void updateState(Transaction* transaction, vector<StateRecord> &state) {
+    bool foundA = false;
+    bool foundB = false;
+    for(vector<StateRecord>::iterator it = state.begin(); it != state.end(); ++it) {
+        if(transaction -> A_name == it -> name) {
+            foundA = true;
+            it -> value += transaction -> aPays;
+        }
+        if(transaction -> B_name == it -> name) {
+            foundB = true;
+            it -> value += transaction -> bPays;
+        }
+    }
+
+    if(!foundA) {
+        StateRecord st;
+        st.name = transaction -> A_name;
+        st.value = transaction -> aPays;
+        state.push_back(st);
+    }
+    if(!foundB) {
+        StateRecord st;
+        st.name = transaction -> B_name;
+        st.value = transaction -> bPays;
+        state.push_back(st);
+    }
 }
 
 

@@ -1,4 +1,5 @@
 #include <string>
+#include <vector>
 #define MAX_TRANSACTIONS_AMOUNT 5
 
 using namespace std;
@@ -8,6 +9,12 @@ struct Transaction {
     string B_name;
     int aPays;
     int bPays;
+};
+
+
+struct StateRecord {
+    string name;
+    int value;
 };
 
 
@@ -30,7 +37,7 @@ string hashMe();
 
 Transaction* makeTransaction(int maxValue);
 
-void updateState();
+void updateState(Transaction* transaction, vector<StateRecord> &state);
 
 bool isValidTxn();
 
