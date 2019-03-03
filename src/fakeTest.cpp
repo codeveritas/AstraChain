@@ -2,6 +2,10 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "Transaction.h"
+#include "Block.h"
+#include "BlockContent.h"
+#include "StateRecord.h"
 
 using namespace std;
 

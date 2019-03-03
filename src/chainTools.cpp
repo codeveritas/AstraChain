@@ -1,4 +1,5 @@
 #include "chainTools.h"
+#include "BlockContent.h"
 #include <string>
 #include <vector>
 
@@ -9,7 +10,7 @@ string hashMe(BlockContent blockContent) {
 }
 
 
-Transaction* makeTransaction(int maxValue = 3) {
+Transaction* makeTransaction(int maxValue) {
 	//This will create valid transactions in the range of(1, maxValue)
 	Transaction* ptr;
 	ptr = new Transaction;
@@ -65,15 +66,19 @@ Block makeBlock(vector<Transaction> transactions, vector<Block> chain) {
     string parentHash = parentBlock.blockHash;
     int blockNumber = parentBlock.blockContent.blockNumber + 1;
     int transactionCounts = transactions.size();
+    
     BlockContent blockContent;
     blockContent.blockNumber = blockNumber;
     blockContent.parentHash = parentHash;
     blockContent.transactionCount = transactionCounts;
     blockContent.transactions = transactions;
+
     string blockHash = hashMe(blockContent);
+
     Block block;
     block.blockHash = blockHash;
     block.blockContent = blockContent;
+
     return block;
 }
 

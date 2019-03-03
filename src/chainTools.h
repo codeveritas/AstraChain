@@ -1,34 +1,14 @@
+#pragma once
 #include <string>
 #include <vector>
-#define MAX_TRANSACTIONS_AMOUNT 5
+#include <Block.h>
+#include "Transaction.h"
+#include "BlockContent.h"
+#include "Block.h"
+#include "StateRecord.h"
 
 using namespace std;
 
-struct Transaction {
-    string A_name;
-    string B_name;
-    int aPays;
-    int bPays;
-};
-
-
-struct StateRecord {
-    string name;
-    int value;
-};
-
-
-struct BlockContent {
-    int blockNumber;
-    string parentHash;
-    int transactionCount;
-    vector<Transaction> transactions;
-};
-
-struct Block {
-    BlockContent blockContent;
-    string blockHash;
-};
 
 string hashMe(BlockContent blockContent);
 
