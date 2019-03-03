@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#define MAX_TRANSACTIONS_AMOUNT 5
 
 using namespace std;
 
@@ -15,7 +16,7 @@ struct BlockContent {
     int blockNumber;
     string parentHash;
     int transactionCount;
-    Transaction transactions[5];
+    Transaction transactions[MAX_TRANSACTIONS_AMOUNT];
 };
 
 struct Block {
@@ -27,8 +28,8 @@ struct Block {
 };
 
 
-void hashMe() {
-    
+string hashMe() {
+    return "deadbeef";
 }
 
 
