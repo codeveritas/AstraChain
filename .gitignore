@@ -1,2 +1,3 @@
 # OS X files
 .DS_Store
+*.out

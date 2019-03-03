@@ -1,13 +1,13 @@
 #include <iostream>
+#include <string>
 
 using namespace std;
 
-struct MakeTransaction
-{	
-	char A_name[6]="Alice";
-	char B_name[4]="Bob";
-	int alicePays;
-	int bobPays; 
+struct Transaction {
+	string A_name;
+	string B_name;
+	int aPays;
+	int bPays; 
 };
 
 
@@ -16,14 +16,17 @@ void hashMe() {
 }
 
 
-MakeTransaction* makeTransaction(int maxValue = 3) {
+Transaction* makeTransaction(int maxValue = 3) {
 	//This will create valid transactions in the range of(1, maxValue)
-	MakeTransaction* ptr;
-	ptr = new MakeTransaction;
+	Transaction* ptr;
+	ptr = new Transaction;
+    ptr -> A_name = "Alice";
+    ptr -> B_name = "Bob";
+
 	int sign = rand() % 1 - 1;
 	int amount = rand() % maxValue + 1;
-	ptr->alicePays = sign * amount;
-	ptr->bobPays = -1 * ptr->alicePays;
+	ptr->aPays = sign * amount;
+	ptr->bPays = -1 * ptr->aPays;
 	// By construction, this will always return transactions that respect the conservation of tokens.
 	// However, note that we have not done anything to check whether these overdraft an account
 	return ptr;
