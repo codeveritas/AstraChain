@@ -4,7 +4,7 @@
 
 using namespace std;
 
-string hashMe() {
+string hashMe(BlockContent blockContent) {
     return "deadbeef";
 }
 
@@ -60,8 +60,21 @@ bool isValidTxn() {
 }
 
 
-void makeBlock() {
-
+Block makeBlock(vector<Transaction> transactions, vector<Block> chain) {
+    Block parentBlock = chain.back();
+    string parentHash = parentBlock.blockHash;
+    int blockNumber = parentBlock.blockContent.blockNumber + 1;
+    int transactionCounts = transactions.size();
+    BlockContent blockContent;
+    blockContent.blockNumber = blockNumber;
+    blockContent.parentHash = parentHash;
+    blockContent.transactionCount = transactionCounts;
+    blockContent.transactions = transactions;
+    string blockHash = hashMe(blockContent);
+    Block block;
+    block.blockHash = blockHash;
+    block.blockContent = blockContent;
+    return block;
 }
 
 

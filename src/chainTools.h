@@ -22,18 +22,15 @@ struct BlockContent {
     int blockNumber;
     string parentHash;
     int transactionCount;
-    Transaction transactions[MAX_TRANSACTIONS_AMOUNT];
+    vector<Transaction> transactions;
 };
 
 struct Block {
     BlockContent blockContent;
     string blockHash;
-
-    Block* prev;
-    Block* next;
 };
 
-string hashMe();
+string hashMe(BlockContent blockContent);
 
 Transaction* makeTransaction(int maxValue);
 
@@ -41,7 +38,7 @@ void updateState(Transaction* transaction, vector<StateRecord> &state);
 
 bool isValidTxn();
 
-void makeBlock();
+Block makeBlock(vector<Transaction> transactions, vector<Block> chain);
 
 bool checkBlockHash();
 
