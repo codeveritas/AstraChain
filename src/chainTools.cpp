@@ -10,16 +10,15 @@ string hashMe(BlockContent blockContent) {
 }
 
 
-Transaction* makeTransaction(int maxValue) {
+Transaction* makeTransaction(int Value, string A_name, string B_name, ) {
 	//This will create valid transactions in the range of(1, maxValue)
 	Transaction* ptr;
 	ptr = new Transaction;
-    ptr -> A_name = "Alice";
-    ptr -> B_name = "Bob";
+    ptr -> A_name = A_name;
+    ptr -> B_name = B_name;
 
 	int sign = rand() % 1 - 1;
-	int amount = rand() % maxValue + 1;
-	ptr->aPays = sign * amount;
+	ptr->aPays = sign * Value;
 	ptr->bPays = -1 * ptr -> aPays;
 	// By construction, this will always return transactions that respect the conservation of tokens.
 	// However, note that we have not done anything to check whether these overdraft an account
@@ -66,7 +65,7 @@ Block makeBlock(vector<Transaction> transactions, vector<Block> chain) {
     string parentHash = parentBlock.blockHash;
     int blockNumber = parentBlock.blockContent.blockNumber + 1;
     int transactionCounts = transactions.size();
-    
+
     BlockContent blockContent;
     blockContent.blockNumber = blockNumber;
     blockContent.parentHash = parentHash;
