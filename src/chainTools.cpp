@@ -84,7 +84,11 @@ Block makeBlock(vector<Transaction> transactions, vector<Block> chain) {
 }
 
 
-bool checkBlockHash() {
+bool checkBlockHash(Block block) {
+    expectedHash = hashMe(block.blockContent);
+    if(!strcmp(expectedHash, block.blockContent.parentHash)) {
+        return false;
+    }
     return true;
 }
 
