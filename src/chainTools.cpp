@@ -14,8 +14,8 @@ Transaction* makeTransaction(int maxValue) {
 	//This will create valid transactions in the range of(1, maxValue)
 	Transaction* ptr;
 	ptr = new Transaction;
-	ptr -> A_name = A_name;
-    ptr -> B_name = B_name;
+	ptr -> A_name = "Alice";
+    ptr -> B_name = "Bob";
 	
 	int sign;
 	(rand() % 2 == 0) ? sign = -1 : sign = 1;
@@ -85,11 +85,11 @@ Block makeBlock(vector<Transaction> transactions, vector<Block> chain) {
 
 
 bool checkBlockHash(Block block) {
-    expectedHash = hashMe(block.blockContent);
-    if(!strcmp(expectedHash, block.blockContent.parentHash)) {
-        return false;
-    }
-    return true;
+	string expectedHash = hashMe(block.blockContent);
+	if (expectedHash == block.blockContent.parentHash) {
+		return false;
+	}
+	return true;
 }
 
 
