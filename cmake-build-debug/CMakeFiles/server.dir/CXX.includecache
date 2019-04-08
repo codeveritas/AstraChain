@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/Zakirov/Documents/Артем/Технопарк/C++/server/main.cpp
+iostream
+-
+errno.h
+-
+event.h
+-
+evhttp.h
+-
+signal.h
+-
+netinet/in.h
+-
+arpa/inet.h
+-
+
