@@ -28,6 +28,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1F2BEE55225B957200FD1C35 /* FormSFML.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormSFML.h; sourceTree = "<group>"; };
 		1F3949FD225B3FA800B82E47 /* sfml-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "sfml-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F394A01225B3FA800B82E47 /* sfml-app-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "sfml-app-Info.plist"; sourceTree = "<group>"; };
 		1F394A02225B3FA800B82E47 /* ResourcePath.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ResourcePath.mm; sourceTree = "<group>"; };
@@ -98,6 +99,7 @@
 				1F394A02225B3FA800B82E47 /* ResourcePath.mm */,
 				1F394A04225B3FA800B82E47 /* ResourcePath.hpp */,
 				1F394A05225B3FA800B82E47 /* main.cpp */,
+				1F2BEE55225B957200FD1C35 /* FormSFML.h */,
 				1F394A07225B3FA800B82E47 /* Resources */,
 				1F394A00225B3FA800B82E47 /* Supporting Files */,
 			);
