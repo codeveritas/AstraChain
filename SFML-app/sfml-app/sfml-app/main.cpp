@@ -22,25 +22,37 @@
 
 int main(int, char const**)
 {
-    // Create the main window
+    // Create the main window (resizable)
     //sf::RenderWindow window(sf::VideoMode(600, 600), "Fake app");
+    
+    // Unresizable main window
     sf::RenderWindow window;
     window.create(sf::VideoMode(600, 570), "Fake app!", sf::Style::Close);
-    // Set the Icon
+    
+    // Setting ellipse shape
+    sf::CircleShape ellipse(30.f);
+    ellipse.setFillColor(sf::Color::Red);
+    
+    // Setting ellipse shape
+    sf::RectangleShape rectangle;
+    rectangle.setSize(sf::Vector2f(60, 60));
+    rectangle.setFillColor(sf::Color::Blue);
+    
+    // Setting the Icon
     sf::Image icon;
     if (!icon.loadFromFile(resourcePath() + "icon.png")) {
         return EXIT_FAILURE;
     }
     window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
     
-    // Load a sprite to display
+    // Loading background
     sf::Texture texture;
     if (!texture.loadFromFile(resourcePath() + "menu_image.jpg")) {
         return EXIT_FAILURE;
     }
     sf::Sprite sprite(texture);
     
-    // Create a graphical text to display
+    // Setting font for text
     sf::Font font;
     if (!font.loadFromFile(resourcePath() + "fakecoin.ttf")) {
     //    if (!font.loadFromFile(resourcePath() + "Roboto-Medium.ttf")) {
@@ -86,6 +98,17 @@ int main(int, char const**)
         // Draw the string
         text.setPosition(120 , 0);
         window.draw(text);
+        
+        //draw the shape
+        for(int i=0; i<5; i++){
+            ellipse.setPosition(120 + 80 * i, 100);
+            rectangle.setPosition(120 + 80 * i, 200);
+            window.draw(ellipse);
+            window.draw(rectangle);
+
+
+        }
+
         // Update the window
         window.display();
     }
