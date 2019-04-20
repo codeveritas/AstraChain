@@ -14,7 +14,7 @@
 // function `resourcePath()` from ResourcePath.hpp
 //
 #include <iostream>
-#include <SFML/Audio.hpp>
+//#include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 
 // Here is a small helper for you! Have a look.
@@ -112,7 +112,7 @@ int main(int, char const**)
         buttonText.setPosition(500, 5);
         window.draw(buttonText);
         buttonText.setString("Settings");
-        buttonText.setPosition(500, 40);
+        buttonText.setPosition(490, 45);
         window.draw(buttonText);
         buttonText.setString("Button");
         buttonText.setFillColor(sf::Color::Black);

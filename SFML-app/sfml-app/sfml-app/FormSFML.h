@@ -2,7 +2,7 @@
 //  FormSFML.h
 //  sfml-app
 //
-//  Created by Ибрагим on 08/04/2019.
+//  Created by Ибрагим on 07/04/2019.
 //  Copyright © 2019 Ибрагим Мамадаев. All rights reserved.
 //
 
@@ -36,7 +36,8 @@ namespace form {
             text = _text;                                // загружает текст
             TXT.setFont(None);                            // загружаем фрифт
             TXT.setCharacterSize(20);                     // в пикселях, а не точках!
-            TXT.setColor(Color::White);                    // устанавливаем цвет выводимого текста
+            TXT.setFillColor(Color::White);
+            //TXT.setColor(Color::White);                    // устанавливаем цвет выводимого текста
             TXT.setPosition(x,y);                        // позиция текста
         }
         Text displayText()
@@ -63,7 +64,8 @@ namespace form {
             text = _text;                                // загружает текст
             TXT.setFont(None);                            // загружаем фрифт
             TXT.setCharacterSize(20);                     // в пикселях, а не точках!
-            TXT.setColor(Color::White);                    // устанавливаем цвет выводимого текста
+            TXT.setFillColor(Color::White);
+            //TXT.setColor(Color::White);                    // устанавливаем цвет выводимого текста
             TXT.setPosition(x,y);                        // позиция текста
             
             BOX.setSize(Vector2f(width, height));        // размер кнопки
@@ -111,7 +113,9 @@ namespace form {
             
             TXT.setFont(None);                            // загружаем фрифт
             TXT.setCharacterSize(20);                     // в пикселях, а не точках!
-            TXT.setColor(Color::Black);                    // устанавливаем цвет выводимого текста
+            TXT.setFillColor(Color::Black);
+
+            //TXT.setColor(Color::Black);                    // устанавливаем цвет выводимого текста
             TXT.setPosition(x,y);                        // позиция текста
             
             BOX.setSize(Vector2f(width, height));        // размер поля ввода
