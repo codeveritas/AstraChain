@@ -4,6 +4,7 @@
 
 # CPP files
 *.out
+*.o
 *.gch
 
 # IDE files
