@@ -6,8 +6,8 @@ GTEST_DIR=/Users/bogdansalyp/googletest/googletest
 
 all: chain.out
 	
-chain.out: main.o Node.o NodeDatabase.o NodeServer.o Wallet.o WalletDatabase.o WalletInterface.o WalletServer.o
-	$(CC) main.o Node.o NodeDatabase.o NodeServer.o Wallet.o WalletDatabase.o WalletInterface.o WalletServer.o -o chain.out
+chain.out: main.o Node.o NodeDatabase.o NodeServer.o Wallet.o WalletDatabase.o WalletInterface.o WalletServer.o Transaction.o BlockContent.o Block.o
+	$(CC) main.o Node.o NodeDatabase.o NodeServer.o Wallet.o WalletDatabase.o WalletInterface.o WalletServer.o Transaction.o BlockContent.o Block.o -o chain.out
 
 main.o: main.cpp
 	$(CC) $(CFLAGS) main.cpp
@@ -33,8 +33,17 @@ WalletInterface.o: src/WalletInterface.cpp
 WalletServer.o: src/WalletServer.cpp
 	$(CC) $(CFLAGS) src/WalletServer.cpp
 
-gtest: Node.o NodeDatabase.o NodeServer.o Wallet.o WalletDatabase.o WalletInterface.o WalletServer.o
-	$(CC) -pthread -stdlib=libc++ -std=c++11 test/test.cpp -I$(GTEST_DIR)/include -lgtest -lgtest_main -L$(GTEST_DIR) Node.o NodeDatabase.o NodeServer.o Wallet.o WalletDatabase.o WalletInterface.o WalletServer.o -o test.out
+Transaction.o: src/Transaction.cpp
+	$(CC) $(CFLAGS) src/Transaction.cpp
+
+BlockContent.o: src/BlockContent.cpp
+	$(CC) $(CFLAGS) src/BlockContent.cpp
+
+Block.o: src/Block.cpp
+	$(CC) $(CFLAGS) src/Block.cpp
+
+gtest: Node.o NodeDatabase.o NodeServer.o Wallet.o WalletDatabase.o WalletInterface.o WalletServer.o Transaction.o BlockContent.o Block.o
+	$(CC) -pthread -stdlib=libc++ -std=c++11 test/test.cpp -I$(GTEST_DIR)/include -lgtest -lgtest_main -L$(GTEST_DIR) Node.o NodeDatabase.o NodeServer.o Wallet.o WalletDatabase.o WalletInterface.o WalletServer.o  Transaction.o BlockContent.o Block.o -o test.out
 	./test.out
 
 clean:

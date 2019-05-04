@@ -16,4 +16,22 @@ struct ObserverPresent : public std::exception {
    }
 };
 
+struct NegativeValueTransaction : public std::exception {
+   const char * what () const throw () {
+      return "NegativeValueTransaction Exception";
+   }
+};
+
+struct SameAddressTransaction : public std::exception {
+   const char * what () const throw () {
+      return "SameAddressTransaction Exception";
+   }
+};
+
+struct EmptyTransactionList : public std::exception {
+   const char * what () const throw () {
+      return "EmptyTransactionList Exception";
+   }
+};
+
 #endif //ASTRACHAIN_OBSERVER_ERRORS_HPP

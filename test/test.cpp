@@ -1,3 +1,4 @@
+#include <vector>
 #include "gtest/gtest.h"
 
 #include "../src/Node.hpp"
@@ -7,6 +8,9 @@
 #include "../src/WalletDatabase.hpp"
 #include "../src/WalletInterface.hpp"
 #include "../src/WalletServer.hpp"
+#include "../src/Transaction.hpp"
+#include "../src/BlockContent.hpp"
+#include "../src/Block.hpp"
 #include "../src/ObserverErrors.hpp"
 
 //------------------------ Node DatabaseObserver tests ------------------------
@@ -307,6 +311,46 @@ TEST(WalletServerNodeObserver, SecondRemove) {
     walletServer.registerWalletObserver(&wallet);
     walletServer.removeWalletObserver();
     EXPECT_THROW(walletServer.removeWalletObserver(), NoObserver);
+}
+
+//------------------------ Transaction tests ------------------------
+
+TEST(Transaction, NormalConstructor) {
+    EXPECT_NO_THROW(Transaction("a", "b", 1));
+}
+
+TEST(Transaction, NegativeValueConstructor) {
+    EXPECT_THROW(Transaction("a", "b", -1), NegativeValueTransaction);
+}
+
+TEST(Transaction, SameAddressTransaction) {
+    EXPECT_THROW(Transaction("Anna", "Anna", 5), SameAddressTransaction);
+}
+
+//------------------------ BlockContent tests ------------------------
+
+TEST(BlockContent, NormalConstructor) {
+    std::vector<Transaction> transactions;
+    transactions.push_back(Transaction("0x111", "0x222", 5));
+    transactions.push_back(Transaction("0x333", "0x222", 15));
+    transactions.push_back(Transaction("0x111", "0x444", 25));
+    EXPECT_NO_THROW(BlockContent(transactions, 1, "deadbeef"));
+}
+
+TEST(BlockContent, EmptyTransactionsListConstructor) {
+    std::vector<Transaction> transactions;
+    EXPECT_THROW(BlockContent(transactions, 1, "deadbeef"), EmptyTransactionList);
+}
+
+//------------------------ Block tests ------------------------
+
+TEST(Block, NormalConstructor) {
+    std::vector<Transaction> transactions;
+    transactions.push_back(Transaction("0x111", "0x222", 5));
+    transactions.push_back(Transaction("0x333", "0x222", 15));
+    transactions.push_back(Transaction("0x111", "0x444", 25));
+    BlockContent blockContent(transactions, 1, "deadbeef");
+    EXPECT_NO_THROW(Block(blockContent, "deadbeef"));
 }
 
 int main(int argc, char **argv) {
