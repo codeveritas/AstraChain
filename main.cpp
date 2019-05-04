@@ -14,5 +14,26 @@ int main() {
     WalletDatabase walletDatabase;
     WalletInterface walletInterface;
     WalletServer walletServer;
+    node.registerServerObserver(&nodeServer);
+    node.registerDatabaseObserver(&nodeDatabase);
+    node.removeServerObserver();
+    node.removeDatabaseObserver();
+    nodeDatabase.registerNodeObserver(&node);
+    nodeServer.registerNodeObserver(&node);
+    nodeDatabase.removeNodeObserver();
+    nodeServer.removeNodeObserver();
+
+    wallet.registerDatabaseObserver(&walletDatabase);
+    wallet.registerInterfaceObserver(&walletInterface);
+    wallet.registerServerObserver(&walletServer);
+    wallet.removeDatabaseObserver();
+    wallet.removeInterfaceObserver();
+    wallet.removeServerObserver();
+    walletDatabase.registerWalletObserver(&wallet);
+    walletInterface.registerWalletObserver(&wallet);
+    walletServer.registerWalletObserver(&wallet);
+    walletDatabase.removeWalletObserver();
+    walletInterface.removeWalletObserver();
+    walletServer.removeWalletObserver();
     return 0;
 }
