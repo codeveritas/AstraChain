@@ -1,2 +1,12 @@
 # OS X files
 .DS_Store
+*.swp
+
+# CPP files
+*.out
+*.gch
+
+# IDE files
+.vscode
+.idea
+.ipynb_checkpoints
