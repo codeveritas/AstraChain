@@ -1,3 +1,6 @@
+#ifndef ASTRACHAIN_OBSERVER_ERRORS_HPP
+#define ASTRACHAIN_OBSERVER_ERRORS_HPP
+
 #include <iostream>
 #include <exception>
 
@@ -12,3 +15,5 @@ struct ObserverPresent : public std::exception {
       return "ObserverPresent Exception";
    }
 };
+
+#endif //ASTRACHAIN_OBSERVER_ERRORS_HPP
