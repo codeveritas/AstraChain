@@ -1,8 +1,13 @@
+sudo: required
+dist: trusty
 language: cpp
 compiler: g++
 install: export CXX="g++-5"
-branches:
-  only:
-  - blockchain
-
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - g++-5
+before_install: sudo apt-get update -qq
 script: make all
