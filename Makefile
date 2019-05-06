@@ -1,13 +1,13 @@
 CC=g++
 
-CFLAGS=-c -std=c++11
+CFLAGS=-c -std=c++14
 
 GTEST_DIR=/Users/bogdansalyp/googletest/googletest
 
 all: chain.out
 	
-chain.out: main.o Node.o NodeDatabase.o NodeServer.o Wallet.o WalletDatabase.o WalletInterface.o WalletServer.o Transaction.o BlockContent.o Block.o
-	$(CC) main.o Node.o NodeDatabase.o NodeServer.o Wallet.o WalletDatabase.o WalletInterface.o WalletServer.o Transaction.o BlockContent.o Block.o -o chain.out
+chain.out: main.o Node.o NodeDatabase.o NodeServer.o Wallet.o WalletDatabase.o WalletInterface.o WalletServer.o Transaction.o TransactionWithStatus.o BlockContent.o Block.o
+	$(CC) main.o Node.o NodeDatabase.o NodeServer.o Wallet.o WalletDatabase.o WalletInterface.o WalletServer.o Transaction.o TransactionWithStatus.o BlockContent.o Block.o -o chain.out
 
 main.o: main.cpp
 	$(CC) $(CFLAGS) main.cpp
@@ -36,14 +36,17 @@ WalletServer.o: src/WalletServer.cpp
 Transaction.o: src/Transaction.cpp
 	$(CC) $(CFLAGS) src/Transaction.cpp
 
+TransactionWithStatus.o: src/TransactionWithStatus.cpp
+	$(CC) $(CFLAGS) src/TransactionWithStatus.cpp
+
 BlockContent.o: src/BlockContent.cpp
 	$(CC) $(CFLAGS) src/BlockContent.cpp
 
 Block.o: src/Block.cpp
 	$(CC) $(CFLAGS) src/Block.cpp
 
-gtest: Node.o NodeDatabase.o NodeServer.o Wallet.o WalletDatabase.o WalletInterface.o WalletServer.o Transaction.o BlockContent.o Block.o
-	$(CC) -pthread -stdlib=libc++ -std=c++11 test/test.cpp -I$(GTEST_DIR)/include -lgtest -lgtest_main -L$(GTEST_DIR) Node.o NodeDatabase.o NodeServer.o Wallet.o WalletDatabase.o WalletInterface.o WalletServer.o  Transaction.o BlockContent.o Block.o -o test.out
+gtest: Node.o NodeDatabase.o NodeServer.o Wallet.o WalletDatabase.o WalletInterface.o WalletServer.o Transaction.o TransactionWithStatus.o BlockContent.o Block.o
+	$(CC) -pthread -stdlib=libc++ -std=c++14 test/test.cpp -I$(GTEST_DIR)/include -lgtest -lgtest_main -L$(GTEST_DIR) Node.o NodeDatabase.o NodeServer.o Wallet.o WalletDatabase.o WalletInterface.o WalletServer.o Transaction.o TransactionWithStatus.o BlockContent.o Block.o -o test.out
 	./test.out
 
 clean:

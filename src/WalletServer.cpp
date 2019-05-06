@@ -22,3 +22,16 @@ void WalletServer::removeWalletObserver() {
         throw NoObserver();
     }
 }
+
+// TODO: normal sendTransaction
+void WalletServer::sendTransaction(Transaction transaction) {
+    return;
+}
+
+void WalletServer::giveBlocksToNode(std::vector<Block> blocks) {
+    if (walletObserver) {
+        walletObserver -> handleMinedBlocks(blocks);
+    } else {
+        throw NoObserver();
+    }
+}

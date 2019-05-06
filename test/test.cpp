@@ -327,6 +327,20 @@ TEST(Transaction, SameAddressTransaction) {
     EXPECT_THROW(Transaction("Anna", "Anna", 5), SameAddressTransaction);
 }
 
+//------------------------ TransactionWithStatus tests ------------------------
+
+TEST(TransactionWithStatus, NormalConstructor) {
+    EXPECT_NO_THROW(TransactionWithStatus(Transaction("a", "b", 1), true, 0));
+}
+
+TEST(TransactionWithStatus, NegativeConstructor) {
+    EXPECT_THROW(TransactionWithStatus(Transaction("a", "b", -1), true, 0), NegativeValueTransaction);
+}
+
+TEST(TransactionWithStatus, SameAddressTransaction) {
+    EXPECT_THROW(TransactionWithStatus(Transaction("0x222", "0x222", 1), true, 0), SameAddressTransaction);
+}
+
 //------------------------ BlockContent tests ------------------------
 
 TEST(BlockContent, NormalConstructor) {

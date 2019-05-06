@@ -2,6 +2,7 @@
 #define ASTRACHAIN_NODE_DATABASE_HPP
 
 #include "Node.hpp"
+#include "Block.hpp"
 
 class Node;
 
@@ -23,6 +24,22 @@ public:
     void registerNodeObserver(Node* node);
 
     void removeNodeObserver();
+
+    /**
+     * Write new block to database
+     * @param block block to be added to database
+     */
+    void addBlock(Block block);
+
+    /**
+     * Get chain length
+     */
+    uint64_t getBlockchainLength();
+
+    /**
+     * Get last block
+     */
+    Block getLastBlock();
 
 };
 
