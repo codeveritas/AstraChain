@@ -1,4 +1,6 @@
 language: cpp
+compiler: g++
+install: export CXX="g++-5"
 branches:
   only:
   - blockchain
