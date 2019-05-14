@@ -1,0 +1,5 @@
+/home/maga/ORM_test2/hiberlite/build/CMakeFiles/rebuild_cache.dir
+/home/maga/ORM_test2/hiberlite/build/CMakeFiles/hiberlite.dir
+/home/maga/ORM_test2/hiberlite/build/CMakeFiles/sample.dir
+/home/maga/ORM_test2/hiberlite/build/CMakeFiles/tests.dir
+/home/maga/ORM_test2/hiberlite/build/CMakeFiles/edit_cache.dir

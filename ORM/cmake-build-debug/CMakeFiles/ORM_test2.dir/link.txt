@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/ORM_test2.dir/main.cpp.o  -o ORM_test2 
