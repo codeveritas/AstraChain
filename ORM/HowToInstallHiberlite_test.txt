@@ -1,0 +1,13 @@
+copy all files from /sqlite-almagination to the /hiberlite/sqlite-almagination
+
+$ cd /hiberlite
+$ mkdir build
+$ cd build
+$ cmake ..
+$ make
+
+$ g++ -std=c++14 main.cpp -lsqlite3 -lhiberlite -I/home/maga/ORM_test2/hiberlite/include -L/home/maga/ORM_test2/hiberlite
+
+$ ./a.out
+
+
