@@ -125,50 +125,7 @@ void creatingStatusTable(){
 int insertDoneTransaction(Transactions _transaction){
     hiberlite::Database db("Vallet.db");
 
-    int existsTransaction = 0;
-    int existsWithPending = 0;
-    int existsWithDone = 0;
-    int existingTransactionIndex = 0;
-    vector< hiberlite::bean_ptr<Transactions> > transactions=db.getAllBeans<Transactions>();
-    cout << "TableLength = " << getTableLength<Transactions>() << endl;
-    for (int i=1; i< getTableLength<Transactions>(); i++){
-        cout << transactions[i]->aName << endl;
-        cout << _transaction.aName << endl;
-        cout << transactions[i]->bName << endl;
-        cout << _transaction.bName << endl;
-
-        if (transactions[i]->aName == _transaction.aName &&
-            transactions[i]->aPays == _transaction.aPays &&
-            transactions[i]->bName == _transaction.bName &&
-            transactions[i]->aPays == _transaction.aPays ){
-            existsTransaction = 1;
-            existingTransactionIndex = transactions[i]->pk_id;
-            break;
-        }
-    }
-
-    if (existsTransaction == 1) {
-        vector<hiberlite::bean_ptr<Vallet> > vallet = db.getAllBeans<Vallet>();
-        for (int j = 1; j < getTableLength<Vallet>(); j++) {
-            if (vallet[j]->fk_Transactions == existingTransactionIndex){
-                if (vallet[j]->fk_Status == 2){
-                    existsWithPending = 1;
-                    cout << "Transaction exists with Pending" << endl;
-                    break;
-                }
-                else {
-                    existsWithDone = 1;
-                    cout << "Transaction exists with Done" << endl;
-                }
-            }
-        }
-    }
-    else {
-        cout << "existsTransaction == " << existsTransaction << endl;
-    }
-
-
-    if (existsWithPending == 1 || getTableLength<Transactions>() == 0){
+    if (getTableLength<Transactions>() == 0){
         Transactions x;
         x.pk_id = getTableLength<Transactions>() + 1;
         x.aName = _transaction.aName;
@@ -182,32 +139,21 @@ int insertDoneTransaction(Transactions _transaction){
         y.fk_Transactions = x.pk_id;
         y.fk_Status = 1;
         hiberlite::bean_ptr<Vallet> p1=db.copyBean(y);
-        cout << "Added!!!" << endl;
+        cout << "Added with Done!!!" << endl;
+        return 0;
     }
-    else {
-        if (existsWithDone == 1){
-            cout << "FAIL" << endl;
-            return 1;
-        }
-    }
-    return 0;
-}
-
-
-void insertPendingTransaction(Transactions _transaction){
-    hiberlite::Database db("Vallet.db");
 
     int existsTransaction = 0;
     int existsWithPending = 0;
     int existsWithDone = 0;
     int existingTransactionIndex = 0;
     vector< hiberlite::bean_ptr<Transactions> > transactions=db.getAllBeans<Transactions>();
-//    cout << getTableLength<Transactions>() << endl;
+    cout << "TableLength = " << getTableLength<Transactions>() << endl;
     for (int i=1; i< getTableLength<Transactions>(); i++){
-        cout << transactions[i]->aName << endl;
-        cout << _transaction.aName << endl;
-        cout << transactions[i]->bName << endl;
-        cout << _transaction.bName << endl;
+//        cout << transactions[i]->aName << endl;
+//        cout << _transaction.aName << endl;
+//        cout << transactions[i]->bName << endl;
+//        cout << _transaction.bName << endl;
 
         if (transactions[i]->aName == _transaction.aName &&
             transactions[i]->aPays == _transaction.aPays &&
@@ -218,25 +164,52 @@ void insertPendingTransaction(Transactions _transaction){
             break;
         }
     }
+
     if (existsTransaction == 1) {
         vector<hiberlite::bean_ptr<Vallet> > vallet = db.getAllBeans<Vallet>();
         for (int j = 1; j < getTableLength<Vallet>(); j++) {
             if (vallet[j]->fk_Transactions == existingTransactionIndex){
-                if (vallet[j]->fk_Status == 1){
-                    int existsWithDone  = 1;
-                    cout << "Already Done" << endl;
-                    break;
-                }
                 if (vallet[j]->fk_Status == 2){
                     existsWithPending = 1;
-                    cout << "Transaction existed with Pending" << endl;
+                    vallet[j]->fk_Status = 1;
+                    cout << "Transaction exists with Pending -> Changed status for Done" << endl;
+                    break;
+                }
+                else {
+                    existsWithDone = 1;
+                    cout << "Transaction exists with Done" << endl;
+                    return 1;
                 }
             }
         }
     }
+    else {
+        cout << "existsTransaction == " << existsTransaction << endl;
+
+        Transactions x;
+        x.pk_id = getTableLength<Transactions>() + 1;
+        x.aName = _transaction.aName;
+        x.aPays = _transaction.aPays;
+        x.bName = _transaction.bName;
+        x.bPays = _transaction.bPays;
+        hiberlite::bean_ptr<Transactions> p=db.copyBean(x);
+
+        Vallet y;
+        y.pk_id = x.pk_id = getTableLength<Vallet>() + 1;
+        y.fk_Transactions = x.pk_id;
+        y.fk_Status = 1;
+        hiberlite::bean_ptr<Vallet> p1=db.copyBean(y);
+        cout << "Added with Done!!!" << endl;
+    }
+
+    return 0;
+}
 
 
-    if (existsWithPending == 0 || getTableLength<Transactions>() == 0){
+int insertPendingTransaction(Transactions _transaction){
+    hiberlite::Database db("Vallet.db");
+
+    if (getTableLength<Transactions>() == 0){
         Transactions x;
         x.pk_id = getTableLength<Transactions>() + 1;
         x.aName = _transaction.aName;
@@ -250,44 +223,109 @@ void insertPendingTransaction(Transactions _transaction){
         y.fk_Transactions = x.pk_id;
         y.fk_Status = 2;
         hiberlite::bean_ptr<Vallet> p1=db.copyBean(y);
-        cout << "Added!!!" << endl;
+        cout << "Added with Pending!!!" << endl;
+        return 0;
+    }
+
+    int existsTransaction = 0;
+    int existsWithPending = 0;
+    int existsWithDone = 0;
+    int existingTransactionIndex = 0;
+    vector< hiberlite::bean_ptr<Transactions> > transactions=db.getAllBeans<Transactions>();
+//    cout << getTableLength<Transactions>() << endl;
+    for (int i=1; i< getTableLength<Transactions>(); i++){
+//        cout << transactions[i]->aName << endl;
+//        cout << _transaction.aName << endl;
+//        cout << transactions[i]->bName << endl;
+//        cout << _transaction.bName << endl;
+
+        if (transactions[i]->aName == _transaction.aName &&
+            transactions[i]->aPays == _transaction.aPays &&
+            transactions[i]->bName == _transaction.bName &&
+            transactions[i]->aPays == _transaction.aPays ){
+            existsTransaction = 1;
+            existingTransactionIndex = transactions[i]->pk_id;
+            break;
+        }
+    }
+    if (existsTransaction == 1) {
+//        vector<hiberlite::bean_ptr<Vallet> > vallet = db.getAllBeans<Vallet>();
+//        for (int j = 1; j < getTableLength<Vallet>(); j++) {
+//            if (vallet[j]->fk_Transactions == existingTransactionIndex){
+//                if (vallet[j]->fk_Status == 1){
+//                    int existsWithDone  = 1;
+//                    cout << "Already Done" << endl;
+//                    break;
+//                }
+//                if (vallet[j]->fk_Status == 2){
+//                    existsWithPending = 1;
+//                    cout << "Transaction existed with Pending" << endl;
+//                }
+//            }
+//        }
+        cout << "Transaction exists" << endl;
+        return 1;
     }
     else{
-        cout << "Already existed" << endl;
+        Transactions x;
+        x.pk_id = getTableLength<Transactions>() + 1;
+        x.aName = _transaction.aName;
+        x.aPays = _transaction.aPays;
+        x.bName = _transaction.bName;
+        x.bPays = _transaction.bPays;
+        hiberlite::bean_ptr<Transactions> p=db.copyBean(x);
+
+        Vallet y;
+        y.pk_id = x.pk_id = getTableLength<Vallet>() + 1;
+        y.fk_Transactions = x.pk_id;
+        y.fk_Status = 2;
+        hiberlite::bean_ptr<Vallet> p1=db.copyBean(y);
+        cout << "Added with Pending!!!" << endl;
     }
+
 }
 
-
-int main(){
+void Test(){
     createDB();
     hiberlite::Database db("Vallet.db");
-//    for (int i=0; i<5; i++){
-//        Vallet x;
-//        x.pk_id = i;
-//        x.fk_Transactions = i + 20;
-//        x.fk_Status = 2;
-//
-//        hiberlite::bean_ptr<Vallet> p=db.copyBean(x);
-//    }
 
     Transactions a;
     a.aName = 0123453;
     a.aPays = 8;
     a.bName = 6644375;
     a.bPays = 9;
-    creatingStatusTable();
-    insertPendingTransaction(a);
-    insertPendingTransaction(a);
+
 
     Transactions b;
-    b.aName = 0123453;
-    b.aPays = 8;
-    b.bName = 6644375;
-    b.bPays = 9;
+    b.aName = 77777;
+    b.aPays = 3;
+    b.bName = 66666;
+    b.bPays = 4;
+
+    Transactions c;
+    c.aName = 11111;
+    c.aPays = 4;
+    c.bName = 22222;
+    c.bPays = 9;
+
+    creatingStatusTable();
+    insertPendingTransaction(c);
+    insertPendingTransaction(c);
+    insertDoneTransaction(c);
+    insertDoneTransaction(c);
+
+    cout << "---------" << endl;
+    insertPendingTransaction(a);
+    insertPendingTransaction(a);
     insertPendingTransaction(b);
     insertDoneTransaction(a);
     insertDoneTransaction(b);
+    insertDoneTransaction(b);
+}
 
+
+int main(){
+    Test();
     return 0;
 }
 
