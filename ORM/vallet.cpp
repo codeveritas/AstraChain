@@ -7,6 +7,15 @@
 #include <algorithm>
 using namespace std;
 
+class TransactionsWithStatus{
+public:
+    long aName;
+    float aPays;
+    long bName;
+    float bPays;
+    string Status;
+};
+
 
 class Vallet{
     friend class hiberlite::access;
@@ -206,6 +215,36 @@ int insertDoneTransaction(Transactions _transaction){
 }
 
 
+vector <TransactionsWithStatus> getAllTransactions(){
+    hiberlite::Database db("Vallet.db");
+    vector<hiberlite::bean_ptr<Transactions> > transactions = db.getAllBeans<Transactions>();
+    vector<TransactionsWithStatus> mas(getTableLength<Transactions>());
+
+    vector<hiberlite::bean_ptr<Vallet> > vallet = db.getAllBeans<Vallet>();
+
+
+    for (int i=1; i< getTableLength<Transactions>(); i++){
+        mas[i].aName = transactions[i]->aName;
+        mas[i].aPays = transactions[i]->aPays;
+        mas[i].bName = transactions[i]->bName;
+        mas[i].bPays = transactions[i]->bPays;
+
+
+        for (int j=1; j < getTableLength<Vallet>(); j++){
+            int a = vallet[j]->fk_Transactions;
+            int b = transactions[i]->pk_id;
+            int c = vallet[j]->fk_Status;
+            if (a == b){
+                if (c == 1) {mas[i].Status = "Done";}
+                if (c == 2) {mas[i].Status = "Pending";}
+            }
+        }
+
+    }
+    return mas;
+}
+
+
 int insertPendingTransaction(Transactions _transaction){
     hiberlite::Database db("Vallet.db");
 
@@ -323,9 +362,21 @@ void Test(){
     insertDoneTransaction(b);
 }
 
+void Test_2(){
+    vector<TransactionsWithStatus> mas = getAllTransactions();
+    for (int i=1; i < getTableLength<Vallet>(); i++){
+        cout << mas[i].aName << "  ";
+        cout << mas[i].aPays << "  ";
+        cout << mas[i].bName << "  ";
+        cout << mas[i].bPays << "  ";
+        cout << mas[i].Status << endl;
+    }
+}
 
 int main(){
     Test();
+    Test_2();
+
     return 0;
 }
 
