@@ -335,7 +335,7 @@ vector <TransactionsWithStatus> getAllTransactions(){
 }
 
 
-vector <TransactionsWithStatus> getPendingTransactions(){
+vector <TransactionsWithStatus> getAllPendingTransactions(){
     hiberlite::Database db("Vallet.db");
     vector<hiberlite::bean_ptr<Transactions> > transactions = db.getAllBeans<Transactions>();
     vector<TransactionsWithStatus> mas;
@@ -367,7 +367,7 @@ vector <TransactionsWithStatus> getPendingTransactions(){
 }
 
 
-vector <TransactionsWithStatus> getDoneTransactions(){
+vector <TransactionsWithStatus> getAllDoneTransactions(){
     hiberlite::Database db("Vallet.db");
     vector<hiberlite::bean_ptr<Transactions> > transactions = db.getAllBeans<Transactions>();
     vector<TransactionsWithStatus> mas;
@@ -457,7 +457,7 @@ void Test_2(){
     }
 
     cout << endl << "Transactions with Pending status:" << endl;
-    vector<TransactionsWithStatus> mas_2 = getPendingTransactions();
+    vector<TransactionsWithStatus> mas_2 = getAllPendingTransactions();
     for (int i=0; i < mas_2.size(); i++){
         cout << mas_2[i].aName << "  ";
         cout << mas_2[i].aPays << "  ";
@@ -467,7 +467,7 @@ void Test_2(){
     }
 
     cout << endl <<"Transactions with Done status:" << endl;
-    vector<TransactionsWithStatus> mas_3 = getDoneTransactions();
+    vector<TransactionsWithStatus> mas_3 = getAllDoneTransactions();
     for (int i=0; i < mas_3.size(); i++){
         cout << mas_3[i].aName << "  ";
         cout << mas_3[i].aPays << "  ";
