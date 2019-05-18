@@ -215,36 +215,6 @@ int insertDoneTransaction(Transactions _transaction){
 }
 
 
-vector <TransactionsWithStatus> getAllTransactions(){
-    hiberlite::Database db("Vallet.db");
-    vector<hiberlite::bean_ptr<Transactions> > transactions = db.getAllBeans<Transactions>();
-    vector<TransactionsWithStatus> mas(getTableLength<Transactions>());
-
-    vector<hiberlite::bean_ptr<Vallet> > vallet = db.getAllBeans<Vallet>();
-
-
-    for (int i=1; i< getTableLength<Transactions>(); i++){
-        mas[i].aName = transactions[i]->aName;
-        mas[i].aPays = transactions[i]->aPays;
-        mas[i].bName = transactions[i]->bName;
-        mas[i].bPays = transactions[i]->bPays;
-
-
-        for (int j=1; j < getTableLength<Vallet>(); j++){
-            int a = vallet[j]->fk_Transactions;
-            int b = transactions[i]->pk_id;
-            int c = vallet[j]->fk_Status;
-            if (a == b){
-                if (c == 1) {mas[i].Status = "Done";}
-                if (c == 2) {mas[i].Status = "Pending";}
-            }
-        }
-
-    }
-    return mas;
-}
-
-
 int insertPendingTransaction(Transactions _transaction){
     hiberlite::Database db("Vallet.db");
 
@@ -324,6 +294,110 @@ int insertPendingTransaction(Transactions _transaction){
 
 }
 
+
+vector <TransactionsWithStatus> getAllTransactions(){
+    hiberlite::Database db("Vallet.db");
+    vector<hiberlite::bean_ptr<Transactions> > transactions = db.getAllBeans<Transactions>();
+    vector<TransactionsWithStatus> mas;
+
+    vector<hiberlite::bean_ptr<Vallet> > vallet = db.getAllBeans<Vallet>();
+
+    for (int i=1; i< getTableLength<Transactions>(); i++){
+
+        for (int j=1; j < getTableLength<Vallet>(); j++){
+            int a = vallet[j]->fk_Transactions;
+            int b = transactions[i]->pk_id;
+            int c = vallet[j]->fk_Status;
+            if (a == b){
+                if (c == 1) {
+                    TransactionsWithStatus x;
+                    x.aName = transactions[i]->aName;
+                    x.aPays = transactions[i]->aPays;
+                    x.bName = transactions[i]->bName;
+                    x.bPays = transactions[i]->bPays;
+                    x.Status = "Done";
+                    mas.push_back(x);
+                }
+                if (c == 2) {
+                    TransactionsWithStatus x;
+                    x.aName = transactions[i]->aName;
+                    x.aPays = transactions[i]->aPays;
+                    x.bName = transactions[i]->bName;
+                    x.bPays = transactions[i]->bPays;
+                    x.Status = "Pending";
+                    mas.push_back(x);
+                }
+            }
+        }
+
+    }
+    return mas;
+}
+
+
+vector <TransactionsWithStatus> getPendingTransactions(){
+    hiberlite::Database db("Vallet.db");
+    vector<hiberlite::bean_ptr<Transactions> > transactions = db.getAllBeans<Transactions>();
+    vector<TransactionsWithStatus> mas;
+
+    vector<hiberlite::bean_ptr<Vallet> > vallet = db.getAllBeans<Vallet>();
+
+
+    for (int i=1; i< getTableLength<Transactions>(); i++){
+
+        for (int j=1; j < getTableLength<Vallet>(); j++){
+            int a = vallet[j]->fk_Transactions;
+            int b = transactions[i]->pk_id;
+            int c = vallet[j]->fk_Status;
+            if (a == b){
+                if (c == 2) {
+                    TransactionsWithStatus x;
+                    x.aName = transactions[i]->aName;
+                    x.aPays = transactions[i]->aPays;
+                    x.bName = transactions[i]->bName;
+                    x.bPays = transactions[i]->bPays;
+                    x.Status = "Pending";
+                    mas.push_back(x);
+                }
+            }
+        }
+
+    }
+    return mas;
+}
+
+
+vector <TransactionsWithStatus> getDoneTransactions(){
+    hiberlite::Database db("Vallet.db");
+    vector<hiberlite::bean_ptr<Transactions> > transactions = db.getAllBeans<Transactions>();
+    vector<TransactionsWithStatus> mas;
+
+    vector<hiberlite::bean_ptr<Vallet> > vallet = db.getAllBeans<Vallet>();
+
+
+    for (int i=1; i< getTableLength<Transactions>(); i++){
+        for (int j=1; j < getTableLength<Vallet>(); j++){
+            int a = vallet[j]->fk_Transactions;
+            int b = transactions[i]->pk_id;
+            int c = vallet[j]->fk_Status;
+            if (a == b){
+                if (c == 1) {
+                    TransactionsWithStatus x;
+                    x.aName = transactions[i]->aName;
+                    x.aPays = transactions[i]->aPays;
+                    x.bName = transactions[i]->bName;
+                    x.bPays = transactions[i]->bPays;
+                    x.Status = "Done";
+                    mas.push_back(x);
+                }
+            }
+        }
+
+    }
+    return mas;
+}
+
+
 void Test(){
     createDB();
     hiberlite::Database db("Vallet.db");
@@ -347,6 +421,12 @@ void Test(){
     c.bName = 22222;
     c.bPays = 9;
 
+    Transactions d;
+    d.aName = 112233;
+    d.aPays = 6;
+    d.bName = 445566;
+    d.bPays = 7;
+
     creatingStatusTable();
     insertPendingTransaction(c);
     insertPendingTransaction(c);
@@ -360,16 +440,40 @@ void Test(){
     insertDoneTransaction(a);
     insertDoneTransaction(b);
     insertDoneTransaction(b);
+
+    insertPendingTransaction(d);
 }
 
 void Test_2(){
+
+    cout << endl << "Transactions with Status:" << endl;
     vector<TransactionsWithStatus> mas = getAllTransactions();
-    for (int i=1; i < getTableLength<Vallet>(); i++){
+    for (int i=0; i < mas.size(); i++){
         cout << mas[i].aName << "  ";
         cout << mas[i].aPays << "  ";
         cout << mas[i].bName << "  ";
         cout << mas[i].bPays << "  ";
         cout << mas[i].Status << endl;
+    }
+
+    cout << endl << "Transactions with Pending status:" << endl;
+    vector<TransactionsWithStatus> mas_2 = getPendingTransactions();
+    for (int i=0; i < mas_2.size(); i++){
+        cout << mas_2[i].aName << "  ";
+        cout << mas_2[i].aPays << "  ";
+        cout << mas_2[i].bName << "  ";
+        cout << mas_2[i].bPays << "  ";
+        cout << mas_2[i].Status << endl;
+    }
+
+    cout << endl <<"Transactions with Done status:" << endl;
+    vector<TransactionsWithStatus> mas_3 = getDoneTransactions();
+    for (int i=0; i < mas_3.size(); i++){
+        cout << mas_3[i].aName << "  ";
+        cout << mas_3[i].aPays << "  ";
+        cout << mas_3[i].bName << "  ";
+        cout << mas_3[i].bPays << "  ";
+        cout << mas_3[i].Status << endl;
     }
 }
 
