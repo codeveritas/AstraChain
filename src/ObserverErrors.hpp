@@ -65,4 +65,17 @@ struct TryingToAddTwoDoneTransactions : public std::exception {
    }
 };
 
+struct NotPendingTransaction : public std::exception {
+   const char * what () const throw () {
+      return "NotPendingTransaction Exception";
+   }
+};
+
+struct NotDoneTransaction : public std::exception {
+   const char * what () const throw () {
+      return "NotDoneTransaction Exception";
+   }
+};
+
+
 #endif //ASTRACHAIN_OBSERVER_ERRORS_HPP

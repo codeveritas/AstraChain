@@ -110,7 +110,7 @@ void WalletDatabase::addTransaction(TransactionWithStatus transactionWithStatus)
                         existsWithPending = 1;
                         std::cout << "existsWithPending" << std::endl;
                         throw TryingToAddTwoPendingTransactions();
-                    } 
+                    }
                 } else if (transactions[i] -> status == 1) {
                     if (transactionWithStatus.status == 0){
                         throw TryingToAddPendingAfterDone();
@@ -170,7 +170,6 @@ void WalletDatabase::addTransaction(TransactionWithStatus transactionWithStatus)
     }
 }
 
-// TODO: normal getAllTransactions()
 std::vector<TransactionWithStatus> WalletDatabase::getAllTransactions() {
     std::vector<TransactionWithStatus> transactions;
     hiberlite::Database db("db/Wallet.db");
@@ -187,13 +186,11 @@ std::vector<TransactionWithStatus> WalletDatabase::getAllTransactions() {
     return transactions;
 }
 
-// TODO: normal getAllTransactionsByDate()
 std::vector<TransactionWithStatus> WalletDatabase::getAllTransactionsByDate(time_t datetime) {
     std::vector<TransactionWithStatus> transactions;
     return transactions;
 }
 
-// TODO: normal getAllPendingTransactions()
 std::vector<TransactionWithStatus> WalletDatabase::getAllPendingTransactions() {
     std::vector<TransactionWithStatus> transactions;
     hiberlite::Database db("db/Wallet.db");
@@ -208,10 +205,17 @@ std::vector<TransactionWithStatus> WalletDatabase::getAllPendingTransactions() {
           transactions.push_back(x);
         }
     }
+
+    //TEST of getting all Pending Transactions
+    for (int i = 0; i < transactions.size(); i++){
+        if (transactions[i].status != 0){
+            throw NotPendingTransaction();
+        }
+    }
+    //TEST of getting all Pending Transactions
     return transactions;
 }
 
-// TODO: normal getAllDoneTransactions()
 std::vector<TransactionWithStatus> WalletDatabase::getAllDoneTransactions() {
   std::vector<TransactionWithStatus> transactions;
   hiberlite::Database db("db/Wallet.db");
@@ -226,5 +230,13 @@ std::vector<TransactionWithStatus> WalletDatabase::getAllDoneTransactions() {
         transactions.push_back(x);
       }
   }
+
+  //TEST of getting all Done Transactions
+  for (int i = 0; i < transactions.size(); i++){
+      if (transactions[i].status != 0){
+          throw NotDoneTransaction();
+      }
+  }
+  //TEST of getting all Done Transactions
   return transactions;
 }
