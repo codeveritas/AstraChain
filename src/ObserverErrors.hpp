@@ -34,6 +34,25 @@ struct EmptyTransactionList : public std::exception {
    }
 };
 
+struct PendingTransactionDidnotAdded : public std::exception {
+   const char * what () const throw () {
+      return "PendingTransactionDidnotAdded Exception";
+   }
+};
+
+struct StatusDidnotChanged : public std::exception {
+   const char * what () const throw () {
+      return "StatusDidnotChanged Exception";
+   }
+};
+
+struct TryingToAddPendingAfterDone : public std::exception {
+   const char * what () const throw () {
+      return "TryingToAddPendingAfterDone Exception";
+   }
+};
+
+
 struct TryingToAddTwoPendingTransactions : public std::exception {
    const char * what () const throw () {
       return "TryingToAddTwoPendingTransactions Exception";

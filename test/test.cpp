@@ -372,7 +372,10 @@ TEST(WalletDatabase, AddPendingTransaction) {
     Wallet wallet;
     WalletDatabase walletDatabase;
     wallet.registerDatabaseObserver(&walletDatabase);
+    //TEST of adding PendingTransaction first time
     EXPECT_NO_THROW(wallet.addTransactionToDatabase(TransactionWithStatus(Transaction("Alice", "Bob", 4), false, 0)));
+    //TEST of adding PendingTransaction second time
+    EXPECT_NO_THROW(wallet.addTransactionToDatabase(TransactionWithStatus(Transaction("Mike", "John", 5), false, 0)));
 }
 
 TEST(WalletDatabase, AddDoneTransaction) {
@@ -386,7 +389,7 @@ TEST(WalletDatabase, AddPendingTwoTimes) {
     Wallet wallet;
     WalletDatabase walletDatabase;
     wallet.registerDatabaseObserver(&walletDatabase);
-    wallet.addTransactionToDatabase(TransactionWithStatus(Transaction("Alice", "Bob", 4), false, 0));
+    EXPECT_NO_THROW(wallet.addTransactionToDatabase(TransactionWithStatus(Transaction("Alice", "Bob", 4), false, 0)));
     EXPECT_THROW(wallet.addTransactionToDatabase(TransactionWithStatus(Transaction("Alice", "Bob", 4), false, 0)), TryingToAddTwoPendingTransactions);
 }
 
@@ -394,14 +397,17 @@ TEST(WalletDatabase, AddPendingAndDoneTransactions) {
     Wallet wallet;
     WalletDatabase walletDatabase;
     wallet.registerDatabaseObserver(&walletDatabase);
-    wallet.addTransactionToDatabase(TransactionWithStatus(Transaction("Alice", "Bob", 4), false, 0));
+    EXPECT_NO_THROW(wallet.addTransactionToDatabase(TransactionWithStatus(Transaction("Andrew", "Maisey", 4), false, 0)));
+    EXPECT_NO_THROW(wallet.addTransactionToDatabase(TransactionWithStatus(Transaction("Andrew", "Maisey", 4), true, 0)));
+
 }
 
 TEST(WalletDatabase, AddDoneAndPending) {
     Wallet wallet;
     WalletDatabase walletDatabase;
     wallet.registerDatabaseObserver(&walletDatabase);
-    wallet.addTransactionToDatabase(TransactionWithStatus(Transaction("Alice", "Bob", 4), true, 0));
+    EXPECT_NO_THROW(wallet.addTransactionToDatabase(TransactionWithStatus(Transaction("Alice", "Bob", 4), true, 0)));
+    EXPECT_THROW(wallet.addTransactionToDatabase(TransactionWithStatus(Transaction("Alice", "Bob", 4), false, 0)), TryingToAddPendingAfterDone);
 }
 
 TEST(WalletDatabase, AddTwoDoneTransactions) {
@@ -416,21 +422,21 @@ TEST(WalletDatabase, GetAllTransaction) {
     Wallet wallet;
     WalletDatabase walletDatabase;
     wallet.registerDatabaseObserver(&walletDatabase);
-    wallet.getAllTransactionsFromDatabase();
+    EXPECT_NO_THROW(wallet.getAllTransactionsFromDatabase());
 }
 
 TEST(WalletDatabase, GetAllDoneTransaction) {
     Wallet wallet;
     WalletDatabase walletDatabase;
     wallet.registerDatabaseObserver(&walletDatabase);
-    wallet.getAllDoneTransactionsFromDatabase();
+    EXPECT_NO_THROW(wallet.getAllDoneTransactionsFromDatabase());
 }
 
 TEST(WalletDatabase, GetAllPendignTransaction) {
     Wallet wallet;
     WalletDatabase walletDatabase;
     wallet.registerDatabaseObserver(&walletDatabase);
-    wallet.getAllPendingTransactionsFromDatabase();
+    EXPECT_NO_THROW(wallet.getAllPendingTransactionsFromDatabase());
 }
 
 int main(int argc, char **argv) {

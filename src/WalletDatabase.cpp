@@ -72,9 +72,19 @@ void WalletDatabase::addTransaction(TransactionWithStatus transactionWithStatus)
         x.value = transactionWithStatus.transaction.value;
         x.status = transactionWithStatus.status;
         hiberlite::bean_ptr<Transactions> p=db.copyBean(x);
-
         std::cout << "Added with Pending!!!" << std::endl;
-        return;
+        ////TEST of adding PendingTransaction first time
+        std::vector< hiberlite::bean_ptr<Transactions> > transactions=db.getAllBeans<Transactions>();
+        if (transactions[0]->sender == transactionWithStatus.transaction.sender &&
+            transactions[0]->recipient == transactionWithStatus.transaction.recipient &&
+            transactions[0]->value == transactionWithStatus.transaction.value &&
+            transactions[0]->status == transactionWithStatus.status){
+              return;
+        } else {
+            throw PendingTransactionDidnotAdded();
+            return;
+        }
+        //TEST of adding PendingTransaction first time
     }
 
     int existsWithPending = 0;
@@ -86,17 +96,35 @@ void WalletDatabase::addTransaction(TransactionWithStatus transactionWithStatus)
         if ((transactions[i]->sender == transactionWithStatus.transaction.sender) &&
             (transactions[i]->recipient == transactionWithStatus.transaction.recipient) &&
             (transactions[i]->value == transactionWithStatus.transaction.value)){
+                // if (transactions[i] -> status == 0 && transactionWithStatus.status == 0) {
+                //     existsWithPending = 1;
+                //     std::cout << "existsWithPending" << std::endl;
+                //     throw TryingToAddTwoPendingTransactions();
+                // } else if (transactions[i] -> status == 1 && transactionWithStatus.status == 1) {
+                //     existsWithDone = 1;
+                //     std::cout << "existsWithDone" << std::endl;
+                //     throw TryingToAddTwoDoneTransactions();
+                // }
                 if (transactions[i] -> status == 0) {
-                    existsWithPending = 1;
-                    std::cout << "existsWithPending" << std::endl;
-                    throw TryingToAddTwoPendingTransactions();
+                    if (transactionWithStatus.status == 0){
+                        existsWithPending = 1;
+                        std::cout << "existsWithPending" << std::endl;
+                        throw TryingToAddTwoPendingTransactions();
+                    } 
                 } else if (transactions[i] -> status == 1) {
-                    existsWithDone = 1;
-                    std::cout << "existsWithDone" << std::endl;
-                    throw TryingToAddTwoDoneTransactions();
+                    if (transactionWithStatus.status == 0){
+                        throw TryingToAddPendingAfterDone();
+                    } else {
+                        existsWithDone = 1;
+                        std::cout << "existsWithDone" << std::endl;
+                        throw TryingToAddTwoDoneTransactions();
+                    }
                 }
+
             // existingTransactionIndex = transactions[i]->pk_id;
-            break;
+            if (existsWithPending == 1 || existsWithDone ==1){
+                  break;
+            }
         }
     }
 
@@ -111,7 +139,10 @@ void WalletDatabase::addTransaction(TransactionWithStatus transactionWithStatus)
                 transactions[i]->value == transactionWithStatus.transaction.value &&
                 transactions[i]->status == 0){
                   transactions[i]->status = 1;
-              }
+            } else{
+              std::cout << "StatusDidnotChanged" << std::endl;
+              throw StatusDidnotChanged();
+            }
         }
     } else {
         Transactions x;
@@ -122,6 +153,19 @@ void WalletDatabase::addTransaction(TransactionWithStatus transactionWithStatus)
         x.status = transactionWithStatus.status;
         hiberlite::bean_ptr<Transactions> p=db.copyBean(x);
 
+        //TEST of adding PendingTransaction second time
+        int TableLength = getTableLength<Transactions>();
+        std::vector< hiberlite::bean_ptr<Transactions> > transactions=db.getAllBeans<Transactions>();
+        if (transactions[TableLength-1]->sender == transactionWithStatus.transaction.sender &&
+            transactions[TableLength-1]->recipient == transactionWithStatus.transaction.recipient &&
+            transactions[TableLength-1]->value == transactionWithStatus.transaction.value &&
+            transactions[TableLength-1]->status == transactionWithStatus.status){
+              return;
+        } else {
+            throw PendingTransactionDidnotAdded();
+            return;
+        }
+        //TEST of adding PendingTransaction second time
         std::cout << "New transaction adding" << std::endl;
     }
 }
@@ -137,10 +181,6 @@ std::vector<TransactionWithStatus> WalletDatabase::getAllTransactions() {
                                             DBtransactions[i]->sender,
                                             DBtransactions[i]->value),
                                             DBtransactions[i]->status,0);
-        // x.transaction.sender = DBtransactions[i]->sender;
-        // x.transaction.recipient = DBtransactions[i]->sender;
-        // x.transaction.value = DBtransactions[i]->value;
-        // x.status = DBtransactions[i]->status;
         transactions.push_back(x);
 
     }
@@ -165,10 +205,6 @@ std::vector<TransactionWithStatus> WalletDatabase::getAllPendingTransactions() {
                                               DBtransactions[i]->sender,
                                               DBtransactions[i]->value),
                                               DBtransactions[i]->status,0);
-          // x.sender = DBtransactions[i]->sender;
-          // x.recipient = DBtransactions[i]->recipient;
-          // x.value = DBtransactions[i]->value;
-          // x.status = DBtransactions[i]->status;
           transactions.push_back(x);
         }
     }
@@ -187,10 +223,6 @@ std::vector<TransactionWithStatus> WalletDatabase::getAllDoneTransactions() {
                                             DBtransactions[i]->sender,
                                             DBtransactions[i]->value),
                                             DBtransactions[i]->status,0);
-        // x.transaction.sender = DBtransactions[i]->sender;
-        // x.transaction.recipient = DBtransactions[i]->recipient;
-        // x.transaction.value = DBtransactions[i]->value;
-        // x.status = DBtransactions[i]->status;
         transactions.push_back(x);
       }
   }
