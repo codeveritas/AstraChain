@@ -6,9 +6,8 @@
 
 #include "json_converter.hpp"
 defaultMessageStrcut JSONConverter::fromJsonToDefaultMessage(json_t *requestJSON) {
-    json *root = json_object_get(requestJSON, "message");
-    json *text_json = json_object_get(root, "text");
-
+    json_t *root = json_object_get(requestJSON, "message");
+    json_t *text_json = json_object_get(root, "text");
     defaultMessageStrcut msg(json_string_value(text_json));
     return  msg;
 }

@@ -12,8 +12,8 @@
 
 class defaultMessageStrcut {
 public:
-    std::string text
-    defaultMessage(std::string message) : message(message) {}
+    std::string text;
+    defaultMessageStrcut(std::string text) : text(text) {}
 };
 
 

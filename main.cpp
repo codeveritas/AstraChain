@@ -5,6 +5,7 @@
 #include <signal.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include "handler.hpp"
 
 void brokenPipe(int signum) {
     fprintf(stderr, "Broken Pipe (%d)\n", signum);
@@ -44,7 +45,8 @@ int main(int argc, char **argv) {
     event_init();
     http_server = evhttp_start(http_addr, http_port);
 
-    evhttp_set_gencb(http_server, generic_handler, NULL);
+    evhttp_set_gencb(http_server, unspecified_URL, NULL);
+    evhttp_set_cb(http_server, "/test", test, NULL);
 
     fprintf(stderr, "Server started on %s port %d\n", http_addr, http_port);
 

@@ -80,6 +80,18 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/Users/Zakirov/Documents/Артем/Технопарк/AstraChain/handler.cpp">
+			<Option target="server"/>
+		</Unit>
+		<Unit filename="/Users/Zakirov/Documents/Артем/Технопарк/AstraChain/handler.hpp">
+			<Option target="server"/>
+		</Unit>
+		<Unit filename="/Users/Zakirov/Documents/Артем/Технопарк/AstraChain/json_converter.cpp">
+			<Option target="server"/>
+		</Unit>
+		<Unit filename="/Users/Zakirov/Documents/Артем/Технопарк/AstraChain/json_converter.hpp">
+			<Option target="server"/>
+		</Unit>
 		<Unit filename="/Users/Zakirov/Documents/Артем/Технопарк/AstraChain/main.cpp">
 			<Option target="server"/>
 		</Unit>

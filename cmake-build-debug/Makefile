@@ -123,6 +123,60 @@ server/fast:
 	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/build
 .PHONY : server/fast
 
+handler.o: handler.cpp.o
+
+.PHONY : handler.o
+
+# target to build an object file
+handler.cpp.o:
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/handler.cpp.o
+.PHONY : handler.cpp.o
+
+handler.i: handler.cpp.i
+
+.PHONY : handler.i
+
+# target to preprocess a source file
+handler.cpp.i:
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/handler.cpp.i
+.PHONY : handler.cpp.i
+
+handler.s: handler.cpp.s
+
+.PHONY : handler.s
+
+# target to generate assembly for a file
+handler.cpp.s:
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/handler.cpp.s
+.PHONY : handler.cpp.s
+
+json_converter.o: json_converter.cpp.o
+
+.PHONY : json_converter.o
+
+# target to build an object file
+json_converter.cpp.o:
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/json_converter.cpp.o
+.PHONY : json_converter.cpp.o
+
+json_converter.i: json_converter.cpp.i
+
+.PHONY : json_converter.i
+
+# target to preprocess a source file
+json_converter.cpp.i:
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/json_converter.cpp.i
+.PHONY : json_converter.cpp.i
+
+json_converter.s: json_converter.cpp.s
+
+.PHONY : json_converter.s
+
+# target to generate assembly for a file
+json_converter.cpp.s:
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/json_converter.cpp.s
+.PHONY : json_converter.cpp.s
+
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -159,6 +213,12 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... server"
+	@echo "... handler.o"
+	@echo "... handler.i"
+	@echo "... handler.s"
+	@echo "... json_converter.o"
+	@echo "... json_converter.i"
+	@echo "... json_converter.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

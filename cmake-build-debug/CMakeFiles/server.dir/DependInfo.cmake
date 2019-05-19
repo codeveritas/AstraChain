@@ -4,6 +4,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
+  "/Users/Zakirov/Documents/Артем/Технопарк/AstraChain/handler.cpp" "/Users/Zakirov/Documents/Артем/Технопарк/AstraChain/cmake-build-debug/CMakeFiles/server.dir/handler.cpp.o"
+  "/Users/Zakirov/Documents/Артем/Технопарк/AstraChain/json_converter.cpp" "/Users/Zakirov/Documents/Артем/Технопарк/AstraChain/cmake-build-debug/CMakeFiles/server.dir/json_converter.cpp.o"
   "/Users/Zakirov/Documents/Артем/Технопарк/AstraChain/main.cpp" "/Users/Zakirov/Documents/Артем/Технопарк/AstraChain/cmake-build-debug/CMakeFiles/server.dir/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "AppleClang")

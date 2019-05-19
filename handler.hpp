@@ -2,8 +2,8 @@
 // Created by Артем Закиров on 2019-04-08.
 //
 
-#ifndef SERVER_HANDLER_H
-#define SERVER_HANDLER_H
+#ifndef HANDLER
+#define HANDLER
 
 #include <event.h>
 #include <evhttp.h>
@@ -13,5 +13,4 @@ void unspecified_URL(struct evhttp_request *request, void *arg);
 void test(struct evhttp_request *request, void *arg);
 
 
-
-#endif //SERVER_HANDLER_H
+#endif //HANDLER
