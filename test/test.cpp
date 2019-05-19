@@ -367,6 +367,53 @@ TEST(Block, NormalConstructor) {
     EXPECT_NO_THROW(Block(blockContent, "deadbeef"));
 }
 
+//------------------------ WalletDatabase functional tests ------------------------
+TEST(WalletDatabase, AddPendingTransaction) {
+    Wallet wallet;
+    WalletDatabase walletDatabase;
+    wallet.registerDatabaseObserver(&walletDatabase);
+    EXPECT_NO_THROW(wallet.addTransactionToDatabase(TransactionWithStatus(Transaction("Alice", "Bob", 4), false, 0)));
+}
+
+TEST(WalletDatabase, AddDoneTransaction) {
+    Wallet wallet;
+    WalletDatabase walletDatabase;
+    wallet.registerDatabaseObserver(&walletDatabase);
+    EXPECT_NO_THROW(wallet.addTransactionToDatabase(TransactionWithStatus(Transaction("Alice", "Bob", 4), true, 0)));
+}
+
+TEST(WalletDatabase, AddPendingTwoTimes) {
+    Wallet wallet;
+    WalletDatabase walletDatabase;
+    wallet.registerDatabaseObserver(&walletDatabase);
+    wallet.addTransactionToDatabase(TransactionWithStatus(Transaction("Alice", "Bob", 4), false, 0));
+    // EXPECT_THROW(wallet.addTransactionToDatabase(TransactionWithStatus(Transaction("Alice", "Bob", 4), false, 0)), );
+}
+
+TEST(WalletDatabase, AddPendingAndDoneTransactions) {
+    Wallet wallet;
+    WalletDatabase walletDatabase;
+    wallet.registerDatabaseObserver(&walletDatabase);
+    wallet.addTransactionToDatabase(TransactionWithStatus(Transaction("Alice", "Bob", 4), false, 0));
+    EXPECT_NO_THROW(wallet.addTransactionToDatabase(TransactionWithStatus(Transaction("Alice", "Bob", 4), true, 0)));
+}
+
+TEST(WalletDatabase, AddDoneAndPending) {
+    Wallet wallet;
+    WalletDatabase walletDatabase;
+    wallet.registerDatabaseObserver(&walletDatabase);
+    wallet.addTransactionToDatabase(TransactionWithStatus(Transaction("Alice", "Bob", 4), true, 0));
+    // EXPECT_THROW(wallet.addTransactionToDatabase(TransactionWithStatus(Transaction("Alice", "Bob", 4), false, 0)), );
+}
+
+TEST(WalletDatabase, AddTwoDoneTransactions) {
+    Wallet wallet;
+    WalletDatabase walletDatabase;
+    wallet.registerDatabaseObserver(&walletDatabase);
+    wallet.addTransactionToDatabase(TransactionWithStatus(Transaction("Alice", "Bob", 4), true, 0));
+    // EXPECT_THROW(wallet.addTransactionToDatabase(TransactionWithStatus(Transaction("Alice", "Bob", 4), true, 0)), );
+}
+
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

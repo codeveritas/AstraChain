@@ -5,6 +5,7 @@
 #include "src/WalletDatabase.hpp"
 #include "src/WalletInterface.hpp"
 #include "src/WalletServer.hpp"
+#include "sqlite3.h"
 
 int main() {
     Node node;

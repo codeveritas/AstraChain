@@ -3,6 +3,7 @@
 
 #include "Wallet.hpp"
 #include "TransactionWithStatus.hpp"
+#include "hiberlite/include/hiberlite.h"
 
 class Wallet;
 
