@@ -1,3 +1,0 @@
-/home/maga/ORM_test2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/maga/ORM_test2/cmake-build-debug/CMakeFiles/ORM_test2.dir
-/home/maga/ORM_test2/cmake-build-debug/CMakeFiles/edit_cache.dir
