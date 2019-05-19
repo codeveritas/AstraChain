@@ -2,8 +2,6 @@ CC=g++
 
 CFLAGS=-c -std=c++14
 
-GTEST_DIR=/Users/bogdansalyp/googletest/googletest
-
 all: chain.out
 	
 chain.out: main.o Node.o NodeDatabase.o NodeServer.o Wallet.o WalletDatabase.o WalletInterface.o WalletServer.o Transaction.o TransactionWithStatus.o BlockContent.o Block.o
@@ -46,7 +44,7 @@ Block.o: src/Block.cpp
 	$(CC) $(CFLAGS) src/Block.cpp
 
 gtest: Node.o NodeDatabase.o NodeServer.o Wallet.o WalletDatabase.o WalletInterface.o WalletServer.o Transaction.o TransactionWithStatus.o BlockContent.o Block.o
-	$(CC) -pthread -stdlib=libc++ -std=c++14 test/test.cpp -I$(GTEST_DIR)/include -lgtest -lgtest_main -L$(GTEST_DIR) Node.o NodeDatabase.o NodeServer.o Wallet.o WalletDatabase.o WalletInterface.o WalletServer.o Transaction.o TransactionWithStatus.o BlockContent.o Block.o -o test.out -lsqlite3 -lhiberlite -I/Users/bogdansalyp/projects/AstraChain/src/hiberlite/include -L/Users/bogdansalyp/projects/AstraChain/src/hiberlite/build -pthread -ldl
+	$(CC) -pthread -std=c++14 test/test.cpp -lgtest -lgtest_main Node.o NodeDatabase.o NodeServer.o Wallet.o WalletDatabase.o WalletInterface.o WalletServer.o Transaction.o TransactionWithStatus.o BlockContent.o Block.o -o test.out -lsqlite3 -lhiberlite -I/Users/bogdansalyp/projects/AstraChain/src/hiberlite/include -L/Users/bogdansalyp/projects/AstraChain/src/hiberlite/build -pthread -ldl
 	./test.out
 
 clean:
