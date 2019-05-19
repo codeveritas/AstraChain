@@ -1,11 +1,11 @@
-CC=g++
+CC=$(CXX)
 
 CFLAGS=-c -std=c++14
 
 all: chain.out
 	
 chain.out: main.o Node.o NodeDatabase.o NodeServer.o Wallet.o WalletDatabase.o WalletInterface.o WalletServer.o Transaction.o TransactionWithStatus.o BlockContent.o Block.o
-	$(CC) main.o Node.o NodeDatabase.o NodeServer.o Wallet.o WalletDatabase.o WalletInterface.o WalletServer.o Transaction.o TransactionWithStatus.o BlockContent.o Block.o -lsqlite3 -lhiberlite -I/Users/bogdansalyp/projects/AstraChain/src/hiberlite/include -L/Users/bogdansalyp/projects/AstraChain/src/hiberlite/build -o chain.out -pthread -ldl
+	$(CC) main.o Node.o NodeDatabase.o NodeServer.o Wallet.o WalletDatabase.o WalletInterface.o WalletServer.o Transaction.o TransactionWithStatus.o BlockContent.o Block.o -lsqlite3 -lhiberlite -Isrc/hiberlite/include -Lsrc/hiberlite/build -o chain.out -pthread -ldl
 
 main.o: main.cpp
 	$(CC) $(CFLAGS) main.cpp
