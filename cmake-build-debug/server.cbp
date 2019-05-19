@@ -8,38 +8,38 @@
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="/Users/Zakirov/Documents/Артем/Технопарк/C++/server/cmake-build-debug"/>
+				<Option working_dir="/Users/Zakirov/Documents/Артем/Технопарк/AstraChain/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/Users/Zakirov/Documents/Артем/Технопарк/C++/server/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/Zakirov/Documents/Артем/Технопарк/C++/server/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/Users/Zakirov/Documents/Артем/Технопарк/C++/server/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/Zakirov/Documents/Артем/Технопарк/C++/server/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/Zakirov/Documents/Артем/Технопарк/AstraChain/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/Zakirov/Documents/Артем/Технопарк/AstraChain/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/Zakirov/Documents/Артем/Технопарк/AstraChain/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/Zakirov/Documents/Артем/Технопарк/AstraChain/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="/Users/Zakirov/Documents/Артем/Технопарк/C++/server/cmake-build-debug"/>
+				<Option working_dir="/Users/Zakirov/Documents/Артем/Технопарк/AstraChain/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/Users/Zakirov/Documents/Артем/Технопарк/C++/server/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/Zakirov/Documents/Артем/Технопарк/C++/server/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/Users/Zakirov/Documents/Артем/Технопарк/C++/server/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/Zakirov/Documents/Артем/Технопарк/C++/server/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/Zakirov/Documents/Артем/Технопарк/AstraChain/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/Zakirov/Documents/Артем/Технопарк/AstraChain/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/Zakirov/Documents/Артем/Технопарк/AstraChain/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/Zakirov/Documents/Артем/Технопарк/AstraChain/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="/Users/Zakirov/Documents/Артем/Технопарк/C++/server/cmake-build-debug"/>
+				<Option working_dir="/Users/Zakirov/Documents/Артем/Технопарк/AstraChain/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/Users/Zakirov/Documents/Артем/Технопарк/C++/server/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/Zakirov/Documents/Артем/Технопарк/C++/server/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/Users/Zakirov/Documents/Артем/Технопарк/C++/server/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/Zakirov/Documents/Артем/Технопарк/C++/server/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/Zakirov/Documents/Артем/Технопарк/AstraChain/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/Zakirov/Documents/Артем/Технопарк/AstraChain/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/Zakirov/Documents/Артем/Технопарк/AstraChain/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/Zakirov/Documents/Артем/Технопарк/AstraChain/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="server">
-				<Option output="/Users/Zakirov/Documents/Артем/Технопарк/C++/server/cmake-build-debug/server" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/Users/Zakirov/Documents/Артем/Технопарк/C++/server/cmake-build-debug"/>
+				<Option output="/Users/Zakirov/Documents/Артем/Технопарк/AstraChain/cmake-build-debug/server" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/Zakirov/Documents/Артем/Технопарк/AstraChain/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -52,15 +52,15 @@
 					<Add directory="/Library/Frameworks"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/Users/Zakirov/Documents/Артем/Технопарк/C++/server/cmake-build-debug/Makefile&quot;  VERBOSE=1 server"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/Zakirov/Documents/Артем/Технопарк/C++/server/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/Users/Zakirov/Documents/Артем/Технопарк/C++/server/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/Zakirov/Documents/Артем/Технопарк/C++/server/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/Zakirov/Documents/Артем/Технопарк/AstraChain/cmake-build-debug/Makefile&quot;  VERBOSE=1 server"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/Zakirov/Documents/Артем/Технопарк/AstraChain/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/Zakirov/Documents/Артем/Технопарк/AstraChain/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/Zakirov/Documents/Артем/Технопарк/AstraChain/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="server/fast">
-				<Option output="/Users/Zakirov/Documents/Артем/Технопарк/C++/server/cmake-build-debug/server" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/Users/Zakirov/Documents/Артем/Технопарк/C++/server/cmake-build-debug"/>
+				<Option output="/Users/Zakirov/Documents/Артем/Технопарк/AstraChain/cmake-build-debug/server" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/Zakirov/Documents/Артем/Технопарк/AstraChain/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -73,17 +73,17 @@
 					<Add directory="/Library/Frameworks"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/Users/Zakirov/Documents/Артем/Технопарк/C++/server/cmake-build-debug/Makefile&quot;  VERBOSE=1 server/fast"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/Zakirov/Documents/Артем/Технопарк/C++/server/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/Users/Zakirov/Documents/Артем/Технопарк/C++/server/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/Zakirov/Documents/Артем/Технопарк/C++/server/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/Zakirov/Documents/Артем/Технопарк/AstraChain/cmake-build-debug/Makefile&quot;  VERBOSE=1 server/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/Zakirov/Documents/Артем/Технопарк/AstraChain/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/Zakirov/Documents/Артем/Технопарк/AstraChain/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/Zakirov/Documents/Артем/Технопарк/AstraChain/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/Users/Zakirov/Documents/Артем/Технопарк/C++/server/main.cpp">
+		<Unit filename="/Users/Zakirov/Documents/Артем/Технопарк/AstraChain/main.cpp">
 			<Option target="server"/>
 		</Unit>
-		<Unit filename="/Users/Zakirov/Documents/Артем/Технопарк/C++/server/CMakeLists.txt">
+		<Unit filename="/Users/Zakirov/Documents/Артем/Технопарк/AstraChain/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>
