@@ -34,4 +34,16 @@ struct EmptyTransactionList : public std::exception {
    }
 };
 
+struct TryingToAddTwoPendingTransactions : public std::exception {
+   const char * what () const throw () {
+      return "TryingToAddTwoPendingTransactions Exception";
+   }
+};
+
+struct TryingToAddTwoDoneTransactions : public std::exception {
+   const char * what () const throw () {
+      return "TryingToAddTwoDoneTransactions Exception";
+   }
+};
+
 #endif //ASTRACHAIN_OBSERVER_ERRORS_HPP

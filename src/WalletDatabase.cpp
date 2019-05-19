@@ -4,24 +4,6 @@
 #include <string.h>
 #include <vector>
 
-class Vallet{
-    friend class hiberlite::access;
-    template<class Archive>
-    void hibernate(Archive & ar)
-    {
-        ar & HIBERLITE_NVP(pk_id);
-        ar & HIBERLITE_NVP(fk_Transactions);
-        ar & HIBERLITE_NVP(fk_Status);
-        ar & HIBERLITE_NVP(Date);
-    }
-public:
-    int pk_id;
-    int fk_Transactions;
-    int fk_Status;
-    int Date;
-};
-
-HIBERLITE_EXPORT_CLASS(Vallet)
 
 class Transactions{
     friend class hiberlite::access;
@@ -107,9 +89,11 @@ void WalletDatabase::addTransaction(TransactionWithStatus transactionWithStatus)
                 if (transactions[i] -> status == 0) {
                     existsWithPending = 1;
                     std::cout << "existsWithPending" << std::endl;
+                    throw TryingToAddTwoPendingTransactions();
                 } else if (transactions[i] -> status == 1) {
                     existsWithDone = 1;
                     std::cout << "existsWithDone" << std::endl;
+                    throw TryingToAddTwoDoneTransactions();
                 }
             // existingTransactionIndex = transactions[i]->pk_id;
             break;
@@ -121,15 +105,45 @@ void WalletDatabase::addTransaction(TransactionWithStatus transactionWithStatus)
         std::cout << "Same transaction exists; do nothing" << std::endl;
     } else if (existsWithPending && transactionWithStatus.status == true){
         std::cout << "Changing status" << std::endl;
+        for (int i=0; i<getTableLength<Transactions>(); i++){
+            if (transactions[i]->sender == transactionWithStatus.transaction.sender &&
+                transactions[i]->recipient == transactionWithStatus.transaction.recipient &&
+                transactions[i]->value == transactionWithStatus.transaction.value &&
+                transactions[i]->status == 0){
+                  transactions[i]->status = 1;
+              }
+        }
     } else {
+        Transactions x;
+        x.pk_id = getTableLength<Transactions>() + 1;
+        x.sender = transactionWithStatus.transaction.sender;
+        x.recipient = transactionWithStatus.transaction.recipient;
+        x.value = transactionWithStatus.transaction.value;
+        x.status = transactionWithStatus.status;
+        hiberlite::bean_ptr<Transactions> p=db.copyBean(x);
+
         std::cout << "New transaction adding" << std::endl;
     }
-
 }
 
 // TODO: normal getAllTransactions()
 std::vector<TransactionWithStatus> WalletDatabase::getAllTransactions() {
     std::vector<TransactionWithStatus> transactions;
+    hiberlite::Database db("db/Wallet.db");
+    std::vector<hiberlite::bean_ptr<Transactions> > DBtransactions = db.getAllBeans<Transactions>();
+
+    for (int i=0; i< getTableLength<Transactions>(); i++){
+        TransactionWithStatus x(Transaction(DBtransactions[i]->sender,
+                                            DBtransactions[i]->sender,
+                                            DBtransactions[i]->value),
+                                            DBtransactions[i]->status,0);
+        // x.transaction.sender = DBtransactions[i]->sender;
+        // x.transaction.recipient = DBtransactions[i]->sender;
+        // x.transaction.value = DBtransactions[i]->value;
+        // x.status = DBtransactions[i]->status;
+        transactions.push_back(x);
+
+    }
     return transactions;
 }
 
@@ -142,11 +156,43 @@ std::vector<TransactionWithStatus> WalletDatabase::getAllTransactionsByDate(time
 // TODO: normal getAllPendingTransactions()
 std::vector<TransactionWithStatus> WalletDatabase::getAllPendingTransactions() {
     std::vector<TransactionWithStatus> transactions;
+    hiberlite::Database db("db/Wallet.db");
+    std::vector<hiberlite::bean_ptr<Transactions> > DBtransactions = db.getAllBeans<Transactions>();
+
+    for (int i=0; i< getTableLength<Transactions>(); i++){
+        if (DBtransactions[i]->status == 0){
+          TransactionWithStatus x(Transaction(DBtransactions[i]->sender,
+                                              DBtransactions[i]->sender,
+                                              DBtransactions[i]->value),
+                                              DBtransactions[i]->status,0);
+          // x.sender = DBtransactions[i]->sender;
+          // x.recipient = DBtransactions[i]->recipient;
+          // x.value = DBtransactions[i]->value;
+          // x.status = DBtransactions[i]->status;
+          transactions.push_back(x);
+        }
+    }
     return transactions;
 }
 
 // TODO: normal getAllDoneTransactions()
 std::vector<TransactionWithStatus> WalletDatabase::getAllDoneTransactions() {
-    std::vector<TransactionWithStatus> transactions;
-    return transactions;
+  std::vector<TransactionWithStatus> transactions;
+  hiberlite::Database db("db/Wallet.db");
+  std::vector<hiberlite::bean_ptr<Transactions> > DBtransactions = db.getAllBeans<Transactions>();
+
+  for (int i=0; i< getTableLength<Transactions>(); i++){
+      if (DBtransactions[i]->status == 1){
+        TransactionWithStatus x(Transaction(DBtransactions[i]->sender,
+                                            DBtransactions[i]->sender,
+                                            DBtransactions[i]->value),
+                                            DBtransactions[i]->status,0);
+        // x.transaction.sender = DBtransactions[i]->sender;
+        // x.transaction.recipient = DBtransactions[i]->recipient;
+        // x.transaction.value = DBtransactions[i]->value;
+        // x.status = DBtransactions[i]->status;
+        transactions.push_back(x);
+      }
+  }
+  return transactions;
 }

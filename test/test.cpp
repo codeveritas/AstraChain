@@ -387,7 +387,7 @@ TEST(WalletDatabase, AddPendingTwoTimes) {
     WalletDatabase walletDatabase;
     wallet.registerDatabaseObserver(&walletDatabase);
     wallet.addTransactionToDatabase(TransactionWithStatus(Transaction("Alice", "Bob", 4), false, 0));
-    // EXPECT_THROW(wallet.addTransactionToDatabase(TransactionWithStatus(Transaction("Alice", "Bob", 4), false, 0)), );
+    EXPECT_THROW(wallet.addTransactionToDatabase(TransactionWithStatus(Transaction("Alice", "Bob", 4), false, 0)), TryingToAddTwoPendingTransactions);
 }
 
 TEST(WalletDatabase, AddPendingAndDoneTransactions) {
@@ -395,7 +395,6 @@ TEST(WalletDatabase, AddPendingAndDoneTransactions) {
     WalletDatabase walletDatabase;
     wallet.registerDatabaseObserver(&walletDatabase);
     wallet.addTransactionToDatabase(TransactionWithStatus(Transaction("Alice", "Bob", 4), false, 0));
-    EXPECT_NO_THROW(wallet.addTransactionToDatabase(TransactionWithStatus(Transaction("Alice", "Bob", 4), true, 0)));
 }
 
 TEST(WalletDatabase, AddDoneAndPending) {
@@ -403,7 +402,6 @@ TEST(WalletDatabase, AddDoneAndPending) {
     WalletDatabase walletDatabase;
     wallet.registerDatabaseObserver(&walletDatabase);
     wallet.addTransactionToDatabase(TransactionWithStatus(Transaction("Alice", "Bob", 4), true, 0));
-    // EXPECT_THROW(wallet.addTransactionToDatabase(TransactionWithStatus(Transaction("Alice", "Bob", 4), false, 0)), );
 }
 
 TEST(WalletDatabase, AddTwoDoneTransactions) {
@@ -411,7 +409,28 @@ TEST(WalletDatabase, AddTwoDoneTransactions) {
     WalletDatabase walletDatabase;
     wallet.registerDatabaseObserver(&walletDatabase);
     wallet.addTransactionToDatabase(TransactionWithStatus(Transaction("Alice", "Bob", 4), true, 0));
-    // EXPECT_THROW(wallet.addTransactionToDatabase(TransactionWithStatus(Transaction("Alice", "Bob", 4), true, 0)), );
+    EXPECT_THROW(wallet.addTransactionToDatabase(TransactionWithStatus(Transaction("Alice", "Bob", 4), true, 0)), TryingToAddTwoDoneTransactions);
+}
+
+TEST(WalletDatabase, GetAllTransaction) {
+    Wallet wallet;
+    WalletDatabase walletDatabase;
+    wallet.registerDatabaseObserver(&walletDatabase);
+    wallet.getAllTransactionsFromDatabase();
+}
+
+TEST(WalletDatabase, GetAllDoneTransaction) {
+    Wallet wallet;
+    WalletDatabase walletDatabase;
+    wallet.registerDatabaseObserver(&walletDatabase);
+    wallet.getAllDoneTransactionsFromDatabase();
+}
+
+TEST(WalletDatabase, GetAllPendignTransaction) {
+    Wallet wallet;
+    WalletDatabase walletDatabase;
+    wallet.registerDatabaseObserver(&walletDatabase);
+    wallet.getAllPendingTransactionsFromDatabase();
 }
 
 int main(int argc, char **argv) {
