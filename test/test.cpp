@@ -439,6 +439,15 @@ TEST(WalletDatabase, GetAllPendignTransaction) {
     EXPECT_NO_THROW(wallet.getAllPendingTransactionsFromDatabase());
 }
 
+//------------------------ NodeDatabase functional tests ------------------------
+TEST(NodeDatabase, getBlockchainLength) {
+    Node node;
+    NodeDatabase nodeDatabase;
+    node.registerDatabaseObserver(&nodeDatabase);
+    EXPECT_THROW(node.getBlockchainLengthFromDatabase(), BlockchainIsEmpty);
+}
+
+
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

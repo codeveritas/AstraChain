@@ -1,6 +1,7 @@
 #include "Node.hpp"
 #include "ObserverErrors.hpp"
 
+
 Node::Node() {
     nodeDatabaseObserver = nullptr;
     nodeServerObserver = nullptr;

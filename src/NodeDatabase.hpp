@@ -3,6 +3,7 @@
 
 #include "Node.hpp"
 #include "Block.hpp"
+#include "hiberlite/include/hiberlite.h"
 
 class Node;
 
