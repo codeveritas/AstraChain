@@ -11,8 +11,8 @@
  */
 class BlockContent {
 
-private:
-
+// private:
+public:
     std::vector<Transaction> transactions;
     uint64_t txnCount;
     uint64_t blockNumber;

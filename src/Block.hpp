@@ -10,8 +10,8 @@
  */
 class Block {
 
-private:
-
+// private:
+public:
     BlockContent blockContent;
     std::string hash;
 

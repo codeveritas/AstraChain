@@ -5,7 +5,7 @@
 #include <vector>
 
 
-class Transact{
+class TransactionsArray{
     friend class hiberlite::access;
     template<class Archive>
     void hibernate(Archive & ar)
@@ -15,6 +15,7 @@ class Transact{
         ar & HIBERLITE_NVP(recipient);
         ar & HIBERLITE_NVP(value);
         ar & HIBERLITE_NVP(status);
+        ar & HIBERLITE_NVP(blockNumber);
     }
 public:
     int pk_id;
@@ -22,9 +23,10 @@ public:
     std::string recipient;
     float value;
     int status;
+    int blockNumber;
 };
 
-HIBERLITE_EXPORT_CLASS(Transact)
+HIBERLITE_EXPORT_CLASS(TransactionsArray)
 
 class Nodes{
     friend class hiberlite::access;
@@ -36,7 +38,7 @@ class Nodes{
         ar & HIBERLITE_NVP(hash);
         ar & HIBERLITE_NVP(parentHash);
         ar & HIBERLITE_NVP(txnCount);
-        ar & HIBERLITE_NVP(transactions);
+        // ar & HIBERLITE_NVP(transactions);
     }
 public:
     int pk_id;
@@ -44,7 +46,7 @@ public:
     std::string hash;
     std::string parentHash;
     uint64_t txnCount;
-    std::vector<Transact> transactions;
+    // std::vector<Transact> transactions();
 
 };
 
@@ -88,6 +90,24 @@ void NodeDatabase::removeNodeObserver() {
 
 // TODO: normal addBlock
 void NodeDatabase::addBlock(Block block) {
+    hiberlite::Database db("db/Node.db");
+    std::vector< hiberlite::bean_ptr<Nodes> > nodes=db.getAllBeans<Nodes>();
+    Nodes x;
+    x.pk_id = getTableLength<Nodes>() + 1;
+    x.blockNumber = x.pk_id;
+    x.hash = block.hash;
+    x.parentHash = nodes[getTableLength<Nodes>() - 1]->hash;
+    hiberlite::bean_ptr<Nodes> p=db.copyBean(x);
+
+    for (int i = 0; i < block.blockContent.txnCount; i++){
+        TransactionsArray y;
+        y.pk_id = getTableLength<TransactionsArray>() + 1;
+        y.sender = block.blockContent.transactions[i].sender;
+        y.recipient = block.blockContent.transactions[i].recipient;
+        y.value = block.blockContent.transactions[i].value;
+        y.blockNumber = block.blockContent.blockNumber;
+        hiberlite::bean_ptr<TransactionsArray> p=db.copyBean(y);
+    }
     return;
 }
 
@@ -103,8 +123,8 @@ uint64_t NodeDatabase::getBlockchainLength() {
 
 // TODO: normal getLastBlock
 Block NodeDatabase::getLastBlock() {
-    Block block;
-    return block;
+      Block block;
+      return block;
 }
 
 void NodeServer::getNewTransactionToNode(Transaction transaction) {
