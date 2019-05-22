@@ -461,6 +461,29 @@ TEST(NodeDatabase, addBlock) {
 }
 
 
+TEST(NodeDatabase, getLastBlock) {
+    Node node;
+    NodeDatabase nodeDatabase;
+    node.registerDatabaseObserver(&nodeDatabase);
+
+    std::vector<Transaction> transactions;
+    for (int i=0; i < 5; i++){
+      Transaction x("Mark", "Olga", 6);
+      transactions.push_back(x);
+    }
+    Block x(BlockContent(transactions, 1,"parenthash"), "thisishashstring");
+    EXPECT_NO_THROW(node.addBlockToDatabase(x));
+    EXPECT_NO_THROW(node.getLastBlockFromDatabase());
+
+    Block y = node.getLastBlockFromDatabase();
+    if (x.hash == y.hash){
+        std::cout << "ReturnedLastBlock" << std::endl;
+    } else {
+        std::cout << "ThisIsNotLastBlock" << std::endl;
+    }
+}
+
+
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

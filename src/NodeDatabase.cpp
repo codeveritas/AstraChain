@@ -131,7 +131,7 @@ void NodeDatabase::addBlock(Block block) {
     //TEST of BlockAdding
 }
 
-// TODO: normal getBlockchainLength
+
 uint64_t NodeDatabase::getBlockchainLength() {
     if (getTableLength<Nodes>() != 0){
       return getTableLength<Nodes>();
@@ -141,9 +141,24 @@ uint64_t NodeDatabase::getBlockchainLength() {
     }
 }
 
-// TODO: normal getLastBlock
+
 Block NodeDatabase::getLastBlock() {
-      Block block;
+      hiberlite::Database db("db/Node.db");
+      std::vector<Transaction> transactions;
+      int LastBlockNumber = getTableLength<Nodes>();
+      std::vector< hiberlite::bean_ptr<TransactionsArray> > DBtransactions=db.getAllBeans<TransactionsArray>();
+
+      for (int i = 0; i < getTableLength<TransactionsArray>(); i++){
+          if (DBtransactions[i]->blockNumber == LastBlockNumber){
+              Transaction x(DBtransactions[i]->sender,
+                            DBtransactions[i]->recipient,
+                            DBtransactions[i]->value);
+              transactions.push_back(x);
+          }
+      }
+
+      std::vector< hiberlite::bean_ptr<Nodes> > nodes=db.getAllBeans<Nodes>();
+      Block block(BlockContent(transactions, nodes[LastBlockNumber-1]->blockNumber, nodes[LastBlockNumber-1]->parentHash), nodes[LastBlockNumber-1]->hash);
       return block;
 }
 
