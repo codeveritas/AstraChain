@@ -447,6 +447,19 @@ TEST(NodeDatabase, getBlockchainLength) {
     EXPECT_THROW(node.getBlockchainLengthFromDatabase(), BlockchainIsEmpty);
 }
 
+TEST(NodeDatabase, addBlock) {
+    Node node;
+    NodeDatabase nodeDatabase;
+    node.registerDatabaseObserver(&nodeDatabase);
+
+    std::vector<Transaction> transactions;
+    for (int i=0; i < 5; i++){
+      Transaction x("Mark", "Olga", 6);
+      transactions.push_back(x);
+    }
+    EXPECT_NO_THROW(node.addBlockToDatabase(Block(BlockContent(transactions, 1,"parenthash"), "thisishashstring")));
+}
+
 
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);

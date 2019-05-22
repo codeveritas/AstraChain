@@ -83,5 +83,11 @@ struct BlockchainIsEmpty : public std::exception {
    }
 };
 
+struct BlockDidnotAdded : public std::exception {
+   const char * what () const throw () {
+      return "BlockDidnotAdded Exception";
+   }
+};
+
 
 #endif //ASTRACHAIN_OBSERVER_ERRORS_HPP

@@ -65,7 +65,7 @@ NodeDatabase::NodeDatabase() {
     nodeObserver = nullptr;
     hiberlite::Database db("db/Node.db");
     db.registerBeanClass<Nodes>();
-
+    db.registerBeanClass<TransactionsArray>();
     db.dropModel();
     db.createModel();
 }
@@ -96,10 +96,14 @@ void NodeDatabase::addBlock(Block block) {
     x.pk_id = getTableLength<Nodes>() + 1;
     x.blockNumber = x.pk_id;
     x.hash = block.hash;
-    x.parentHash = nodes[getTableLength<Nodes>() - 1]->hash;
+    if (getTableLength<Nodes>() == 0){
+        x.parentHash = "GenesisBlockWithoutParentHash";
+    } else {
+        x.parentHash = nodes[getTableLength<Nodes>() - 2]->hash;
+    }
     hiberlite::bean_ptr<Nodes> p=db.copyBean(x);
 
-    for (int i = 0; i < block.blockContent.txnCount; i++){
+    for (int i = 0; i < block.blockContent.transactions.size(); i++){
         TransactionsArray y;
         y.pk_id = getTableLength<TransactionsArray>() + 1;
         y.sender = block.blockContent.transactions[i].sender;
@@ -108,7 +112,23 @@ void NodeDatabase::addBlock(Block block) {
         y.blockNumber = block.blockContent.blockNumber;
         hiberlite::bean_ptr<TransactionsArray> p=db.copyBean(y);
     }
-    return;
+
+    //TEST of BlockAdding
+    int count = 0;
+    std::vector< hiberlite::bean_ptr<TransactionsArray> > transactions=db.getAllBeans<TransactionsArray>();
+    for (int i=0; i < getTableLength<TransactionsArray>(); i++){
+        if (transactions[i]->blockNumber == block.blockContent.blockNumber){
+            count++;
+        }
+    }
+    std::cout << count << "  " << block.blockContent.transactions.size() << std::endl;
+    if (count == block.blockContent.transactions.size()){
+        return;
+    } else {
+        throw BlockDidnotAdded();
+        return;
+    }
+    //TEST of BlockAdding
 }
 
 // TODO: normal getBlockchainLength
