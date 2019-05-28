@@ -7,6 +7,7 @@
 #include "json_converter.hpp"
 #include <string.h>
 
+
 void unspecified_URL(struct evhttp_request *request, void *arg){
 
     struct evbuffer *buffer = evbuffer_new();
@@ -43,16 +44,31 @@ void test(struct evhttp_request *request, void *arg) {
     } else {
         snprintf(errorText, 1024, "Input error: on line %d: %s\n", error.line, error.text);
     }
-//        evbuffer_add_printf(responseBuffer, " test");
-////    printf ("Request from: %s:%d URI: %s\n", request->remote_host, request->remote_port, request->uri);
-//    evhttp_send_reply(request, HTTP_OK, "OK", responseBuffer);
-////    evbuffer_free(responseBuffer);
-////    evbuffer_free(requestBuffer);
-//    json_decref(requestJSON);
-//    free(requestDataString);
 }
 
 
 void sendBlock(struct evhttp_request *request, void *arg) {
+    printf ("Request from: %s:%d URI: %s\n", request->remote_host, request->remote_port, request->uri);
+    struct event_base *base = (struct event_base *)arg;
+    struct evbuffer *requestBuffer = evhttp_request_get_input_buffer(request);
+    size_t requestLen = evbuffer_get_length(requestBuffer);
+    char *requestDataString = (char *)malloc(sizeof(char) * requestLen);
+    memset(requestDataString, 0, requestLen);
+    evbuffer_copyout(requestBuffer, requestDataString, requestLen);
+    char errorText[1024];
+    json_error_t error;
+    json_t *requestJSON = json_loadb(requestDataString, requestLen, 0, &error);
+    struct evbuffer *responseBuffer = evbuffer_new();
 
+    if (requestJSON != NULL){
+        requestDataString = json_dumps(requestJSON, JSON_INDENT(4));
+        printf("%s\n",requestDataString);
+        JSONConverter jsonConv;
+        Transaction transaction = jsonConv.fromJsonGetTransaction(requestJSON);
+        std::cout << transaction.sender << transaction.recipient << transaction.value << std::endl;
+        evhttp_send_reply(request, HTTP_OK, "OK", responseBuffer);
+        
+    } else {
+        snprintf(errorText, 1024, "Input error: on line %d: %s\n", error.line, error.text);
+    }
 }

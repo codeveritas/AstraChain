@@ -1,12 +1,16 @@
-//ServerWallet
+//NodeWallet
 
-//sendBlock
+//getBlock
 {
-    {"serverType": "wallet"},
-    {"function" : "sendBlock"},
-    {Transaction :
-        {"sender" : "Ann"},
-        {"recipient : "Mike"},
-        {"value" : "2"}
+    "serverType": "wallet",
+    "function" : "sendBlock",
+    "Transaction" : {
+        "sender" : "Ann",
+        "recipient : "Mike",
+        "value" : "2"
     }
+}
+
+{"message":
+    {"text":"someone like you"}
 }
