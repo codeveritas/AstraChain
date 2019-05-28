@@ -2,6 +2,7 @@
 #include <errno.h>
 #include <event.h>
 #include <evhttp.h>
+#include <cstring>
 #include <signal.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
@@ -47,6 +48,7 @@ int main(int argc, char **argv) {
 
     evhttp_set_gencb(http_server, unspecified_URL, NULL);
     evhttp_set_cb(http_server, "/test", test, NULL);
+    evhttp_set_cb(http_server, "/sendBlock", sendBlock, NULL);
 
     fprintf(stderr, "Server started on %s port %d\n", http_addr, http_port);
 

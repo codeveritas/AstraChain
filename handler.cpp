@@ -5,7 +5,7 @@
 #include <jansson.h>
 #include <iostream>
 #include "json_converter.hpp"
-
+#include <string.h>
 
 void unspecified_URL(struct evhttp_request *request, void *arg){
 
@@ -52,3 +52,7 @@ void test(struct evhttp_request *request, void *arg) {
 //    free(requestDataString);
 }
 
+
+void sendBlock(struct evhttp_request *request, void *arg) {
+
+}

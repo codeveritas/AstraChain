@@ -20,6 +20,7 @@ public:
 class JSONConverter {
 public:
     defaultMessageStrcut fromJsonToDefaultMessage(json_t *requestJSON);
+    Transaction fromJsonGetTransaction(json_t *requestJSON);
 };
 
 #endif // JSON_CONVERTER

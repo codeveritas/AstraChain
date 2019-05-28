@@ -1,0 +1,12 @@
+//ServerWallet
+
+//sendBlock
+{
+    {"serverType": "wallet"},
+    {"function" : "sendBlock"},
+    {Transaction :
+        {"sender" : "Ann"},
+        {"recipient : "Mike"},
+        {"value" : "2"}
+    }
+}

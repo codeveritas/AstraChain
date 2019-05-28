@@ -11,6 +11,7 @@
 
 void unspecified_URL(struct evhttp_request *request, void *arg);
 void test(struct evhttp_request *request, void *arg);
+void sendBlock(struct evhttp_request *request, void *arg);
 
 
 #endif //HANDLER
