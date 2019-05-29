@@ -68,6 +68,7 @@ void sendBlock(struct evhttp_request *request, void *arg) {
         std::cout << "sender: " << transaction.sender << std::endl;
         std::cout << "recipient: " << transaction.recipient << std::endl;
         std::cout << "value: " << transaction.value << std::endl;
+        evhttp_send_reply(request, HTTP_OK, "OK", responseBuffer);
     } else {
         snprintf(errorText, 1024, "Input error: on line %d: %s\n", error.line, error.text);
     }
