@@ -1,0 +1,3 @@
+/Users/bogdansalyp/projects/AstraChain/src/interface/Builds/CLion/build/CMakeFiles/rebuild_cache.dir
+/Users/bogdansalyp/projects/AstraChain/src/interface/Builds/CLion/build/CMakeFiles/edit_cache.dir
+/Users/bogdansalyp/projects/AstraChain/src/interface/Builds/CLion/build/CMakeFiles/APP.dir
