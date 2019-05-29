@@ -1,6 +1,3 @@
-//
-// Created by Артем Закиров on 2019-05-19.
-//
 #ifndef JSON_CONVERTER
 #define JSON_CONVERTER
 

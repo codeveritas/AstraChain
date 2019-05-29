@@ -1,5 +1,11 @@
-//NodeWallet
+//TEST
+{"message":
+    {"text":"someone like you"}
+}
+curl http://127.0.0.1:8000/test -d '{"message":{"text":"someone like you"}}'
 
+
+//NodeWallet
 //getBlock
 {
     "serverType": "wallet",
@@ -11,6 +17,4 @@
     }
 }
 
-{"message":
-    {"text":"someone like you"}
-}
+curl http://127.0.0.1:8000/sendBlock -d '{"serverType": "wallet","function" : "sendBlock","Transaction" : {"sender" : "Ann","recipient" : "Mike","value" : "2"}}'

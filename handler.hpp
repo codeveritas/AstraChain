@@ -1,7 +1,3 @@
-//
-// Created by Артем Закиров on 2019-04-08.
-//
-
 #ifndef HANDLER
 #define HANDLER
 
