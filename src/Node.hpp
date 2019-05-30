@@ -4,6 +4,8 @@
 #include "NodeDatabase.hpp"
 #include "NodeServer.hpp"
 #include "Block.hpp"
+// #include "interface/Source/Main.cpp"
+
 
 class NodeDatabase;
 class NodeServer;

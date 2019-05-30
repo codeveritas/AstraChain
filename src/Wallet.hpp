@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "WalletDatabase.hpp"
-#include "WalletInterface.hpp"
+#include "interface/Source/WalletInterface.hpp"
 #include "WalletServer.hpp"
 #include "Transaction.hpp"
 #include "TransactionWithStatus.hpp"
@@ -13,6 +13,8 @@
 class WalletDatabase;
 class WalletInterface;
 class WalletServer;
+
+// class NewProjectApplication;
 
 /**
  * User client (wallet)

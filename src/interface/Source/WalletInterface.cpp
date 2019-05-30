@@ -10,7 +10,8 @@
 
 WalletInterface::WalletInterface() {
     walletObserver = nullptr;
-    juce::JUCEApplicationBase* a = new NewProjectApplication();
+    // juce::JUCEApplicationBase* a = new NewProjectApplication();
+    // initialiseJuce_GUI();
     // START_JUCE_APPLICATION (NewProjectApplication);
 }
 

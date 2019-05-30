@@ -10,6 +10,13 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "MainComponent.h"
+// #include "../../../utils.cpp"
+#include "../../Wallet.hpp"
+#include "../../WalletDatabase.hpp"
+#include "../../WalletServer.hpp"
+#include "../../WalletInterface.hpp"
+
+#include <iostream>
 
 
 //==============================================================================
@@ -28,13 +35,29 @@ public:
     {
         // This method is where you should put your application's initialisation code..
 
+        Wallet wallet;
+        WalletDatabase walletDatabase;
+        WalletInterface walletInterface;
+        WalletServer walletServer;
+        wallet.registerDatabaseObserver(&walletDatabase);
+        wallet.registerInterfaceObserver(&walletInterface);
+        wallet.registerServerObserver(&walletServer);
+        wallet.removeDatabaseObserver();
+        wallet.removeInterfaceObserver();
+        wallet.removeServerObserver();
+        walletDatabase.registerWalletObserver(&wallet);
+        walletInterface.registerWalletObserver(&wallet);
+        walletServer.registerWalletObserver(&wallet);
+        walletDatabase.removeWalletObserver();
+        walletInterface.removeWalletObserver();
+        walletServer.removeWalletObserver();
         mainWindow.reset (new MainWindow (getApplicationName()));
     }
 
     void shutdown() override
     {
         // Add your application's shutdown code here..
-
+        // std::cout << "shutdown" << std::endl;
         mainWindow = nullptr; // (deletes our window)
     }
 
@@ -104,4 +127,4 @@ private:
 
 //==============================================================================
 // This macro generates the main() routine that launches the app.
-// START_JUCE_APPLICATION (NewProjectApplication)
+START_JUCE_APPLICATION (NewProjectApplication)
