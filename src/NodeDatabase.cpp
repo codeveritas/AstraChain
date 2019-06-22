@@ -52,6 +52,25 @@ public:
 
 HIBERLITE_EXPORT_CLASS(Nodes)
 
+
+class Wallets{
+    friend class hiberlite::access;
+    template<class Archive>
+    void hibernate(Archive & ar)
+    {
+        ar & HIBERLITE_NVP(pk_id);
+        ar & HIBERLITE_NVP(wallet);
+        ar & HIBERLITE_NVP(status);
+    }
+public:
+    int pk_id;
+    std::string wallet;
+    std::string status;
+};
+
+HIBERLITE_EXPORT_CLASS(Wallets)
+
+
 template <class T>
 long getTableLength(){
     hiberlite::Database db("db/Node.db");
