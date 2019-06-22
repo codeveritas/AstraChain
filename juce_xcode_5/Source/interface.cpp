@@ -21,13 +21,16 @@
 //[/Headers]
 
 #include "interface.h"
-#include <iostream>
-using namespace std;
 
+
+//[MiscUserDefs] You can add your own user definitions and misc code here...
+//[/MiscUserDefs]
 
 //==============================================================================
 interface::interface ()
 {
+    //[Constructor_pre] You can add your own custom stuff here..
+    //[/Constructor_pre]
 
     settingsButton.reset (new TextButton ("settings button"));
     addAndMakeVisible (settingsButton.get());
@@ -62,7 +65,7 @@ interface::interface ()
     label_1->setBounds (72, 152, 168, 40);
 
     label.reset (new Label ("new label",
-                            TRANS("FKC")));
+                            TRANS("5.75 FKC")));
     addAndMakeVisible (label.get());
     label->setFont (Font (31.20f, Font::plain).withTypefaceStyle ("Regular"));
     label->setJustificationType (Justification::centred);
@@ -99,13 +102,21 @@ interface::interface ()
     sendEditor->setBounds (368, 216, 150, 24);
 
 
+    //[UserPreSize]
+    //[/UserPreSize]
 
     setSize (600, 400);
 
+
+    //[Constructor] You can add your own custom stuff here..
+    //[/Constructor]
 }
 
 interface::~interface()
 {
+    //[Destructor_pre]. You can add your own custom destruction code here..
+    //[/Destructor_pre]
+
     settingsButton = nullptr;
     sendButton = nullptr;
     updateButton = nullptr;
@@ -114,11 +125,16 @@ interface::~interface()
     targetEditor = nullptr;
     sendEditor = nullptr;
 
+
+    //[Destructor]. You can add your own custom destruction code here..
+    //[/Destructor]
 }
 
 //==============================================================================
 void interface::paint (Graphics& g)
 {
+    //[UserPrePaint] Add your own custom painting code here..
+    //[/UserPrePaint]
 
     g.fillAll (Colour (0xff323e44));
 
@@ -131,38 +147,48 @@ void interface::paint (Graphics& g)
         g.fillRect (x, y, width, height);
     }
 
-    
+    //[UserPaint] Add your own custom painting code here..
+    //[/UserPaint]
 }
 
 void interface::resized()
 {
-    
+    //[UserPreResize] Add your own custom resize code here..
+    //[/UserPreResize]
+
+    //[UserResized] Add your own custom resize handling here..
+    //[/UserResized]
 }
 
 void interface::buttonClicked (Button* buttonThatWasClicked)
 {
+    //[UserbuttonClicked_Pre]
+    //[/UserbuttonClicked_Pre]
 
     if (buttonThatWasClicked == settingsButton.get())
     {
-        cout << "settings button was pressed" <<endl;
+        //[UserButtonCode_settingsButton] -- add your button handler code here..
+        //[/UserButtonCode_settingsButton]
     }
     else if (buttonThatWasClicked == sendButton.get())
     {
-        cout << "send button was pressed" << endl;
-        // цель транзакции
-        //targetEditor->getText();
-        
-        // сумма транзакции
-        //sendEditor->getText();
+        //[UserButtonCode_sendButton] -- add your button handler code here..
+        //[/UserButtonCode_sendButton]
     }
     else if (buttonThatWasClicked == updateButton.get())
     {
-        label->setText("updated", dontSendNotification);
-        cout << "balance update button pressed" << endl;
+        //[UserButtonCode_updateButton] -- add your button handler code here..
+        //[/UserButtonCode_updateButton]
     }
 
+    //[UserbuttonClicked_Post]
+    //[/UserbuttonClicked_Post]
 }
 
+
+
+//[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
+//[/MiscUserCode]
 
 
 //==============================================================================
@@ -197,7 +223,7 @@ BEGIN_JUCER_METADATA
          fontsize="18.5" kerning="0.0" bold="0" italic="0" justification="33"/>
   <LABEL name="new label" id="f8af13dbfff1c1b6" memberName="label" virtualName=""
          explicitFocusOrder="0" pos="80 208 136 24" edTextCol="ff000000"
-         edBkgCol="0" labelText="FKC" editableSingleClick="0" editableDoubleClick="0"
+         edBkgCol="0" labelText="5.75 FKC" editableSingleClick="0" editableDoubleClick="0"
          focusDiscardsChanges="0" fontname="Default font" fontsize="31.2"
          kerning="0.0" bold="0" italic="0" justification="36"/>
   <TEXTEDITOR name="target text editor" id="2efe8a0e98f12588" memberName="targetEditor"

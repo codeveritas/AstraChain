@@ -10,6 +10,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "interface.h"
+#include "authorizeForm.h"
 
 //==============================================================================
 /*
@@ -23,6 +24,7 @@ public:
     MainComponent();
     ~MainComponent();
     interface interface;
+    authorizeForm authorizeForm;
 
     //==============================================================================
     void paint (Graphics&) override;

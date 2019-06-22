@@ -8,6 +8,9 @@
             file="Source/MainComponent.cpp"/>
       <FILE id="xAz2hJ" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
     </GROUP>
+    <FILE id="lAZYUq" name="authorizeForm.cpp" compile="1" resource="0"
+          file="Source/authorizeForm.cpp"/>
+    <FILE id="e7BcEI" name="authorizeForm.h" compile="0" resource="0" file="Source/authorizeForm.h"/>
     <FILE id="y1GX0D" name="interface.cpp" compile="1" resource="0" file="Source/interface.cpp"/>
     <FILE id="Aj8zxs" name="interface.h" compile="0" resource="0" file="Source/interface.h"/>
   </MAINGROUP>
